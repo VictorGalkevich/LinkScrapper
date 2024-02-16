@@ -7,9 +7,9 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import edu.java.bot.command.Command;
 import edu.java.bot.configuration.ApplicationConfig;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import java.util.List;
 import static com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_ALL;
 
 @Component
@@ -20,13 +20,13 @@ public class MyBot extends TelegramBot {
     public MyBot(ApplicationConfig conf, List<Command> commands) {
         super(conf.telegramToken());
         this.commands = commands;
-        this.setUpdatesListener(this::process, e ->{
-                if (e.response() != null) {
-                    e.response().errorCode();
-                    e.response().description();
-                } else {
-                    log.error(e.getLocalizedMessage());
-                }
+        this.setUpdatesListener(this::process, e -> {
+            if (e.response() != null) {
+                e.response().errorCode();
+                e.response().description();
+            } else {
+                log.error(e.getLocalizedMessage());
+            }
         });
         this.setUpMenuCommands();
     }
@@ -46,8 +46,10 @@ public class MyBot extends TelegramBot {
         if (cmd != null) {
             message = cmd.handle(update);
         } else {
-            message = new SendMessage(update.message().chat().id(),
-                "Sorry, I can't proceed this type of message. \nAvailable commands: /help");
+            message = new SendMessage(
+                update.message().chat().id(),
+                "Sorry, I can't proceed this type of message. \nAvailable commands: /help"
+            );
         }
         return message;
     }

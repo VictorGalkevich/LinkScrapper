@@ -6,10 +6,9 @@ import edu.java.bot.processor.ListMessageProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @RequiredArgsConstructor
-public class ListCommand implements Command{
+public class ListCommand implements Command {
     private static final String DESCRIPTION = "show all tracked links";
     private static final String NAME = "/list";
     private final ListMessageProcessor listMessageProcessor;

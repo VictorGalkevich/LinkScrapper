@@ -35,9 +35,10 @@ public class MyBotTest {
         Mockito.doReturn(chat).when(message).chat();
         Mockito.doReturn(123L).when(chat).id();
     }
+
     @Test
     @SneakyThrows
-    void testUnknownCommandTypeNegative(){
+    void testUnknownCommandTypeNegative() {
         Mockito.doReturn("/unknown").when(message).text();
         Method retrieveCommand = MyBot.class.getDeclaredMethod("retrieveCommand", Update.class);
         retrieveCommand.setAccessible(true);
@@ -47,7 +48,7 @@ public class MyBotTest {
 
     @Test
     @SneakyThrows
-    void testExistingCommandTypePositive(){
+    void testExistingCommandTypePositive() {
         Mockito.doReturn("/start").when(message).text();
         Method retrieveCommand = MyBot.class.getDeclaredMethod("retrieveCommand", Update.class);
         retrieveCommand.setAccessible(true);

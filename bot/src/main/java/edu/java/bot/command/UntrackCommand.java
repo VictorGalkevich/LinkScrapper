@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UntrackCommand implements Command{
+public class UntrackCommand implements Command {
     private static final String DESCRIPTION = "stop tracking a link";
     private static final String NAME = "/untrack";
     private final UntrackMessageProcessor untrackMessageProcessor;

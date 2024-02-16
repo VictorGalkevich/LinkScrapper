@@ -5,11 +5,11 @@ import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.entity.Link;
 import edu.java.bot.entity.User;
 import edu.java.bot.repository.UserRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import java.util.Optional;
-
-import static edu.java.bot.util.LinkUtil.*;
+import static edu.java.bot.util.LinkUtil.isValid;
+import static edu.java.bot.util.LinkUtil.parse;
 
 @Component
 @RequiredArgsConstructor
@@ -20,17 +20,16 @@ public class TrackMessageProcessor implements UserMessageProcessor {
     public SendMessage process(Update update) {
         Long id = update.message().chat().id();
         String message;
-        Link link;
         String[] s = update.message().text().split(" ");
         if (s.length != 2) {
             message = "/track syntax might be [/track <link>]";
         } else if (!isValid(s[1])) {
             message = "Provided link is invalid";
-        } else if (isTracked(link = parse(s[1]), id)) {
+        } else if (isTracked(parse(s[1]), id)) {
             message = "Link is already being tracked";
         } else {
             Optional<User> user = userRepository.findById(id);
-            user.ifPresent(it -> it.getLinks().add(link));
+            user.ifPresent(it -> it.getLinks().add(parse(s[1])));
             message = "Link was added to tracking list!";
         }
         return new SendMessage(id, message);

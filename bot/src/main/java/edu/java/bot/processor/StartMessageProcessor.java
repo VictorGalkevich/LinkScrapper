@@ -4,9 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.entity.User;
 import edu.java.bot.repository.UserRepository;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class StartMessageProcessor implements UserMessageProcessor {
         }
         return new SendMessage(id, "Welcome, %s, use /help to see the help page".formatted(
             update.message()
-            .chat()
-            .username()));
+                .chat()
+                .username()));
     }
 }

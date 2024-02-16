@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrackCommandTest extends CommandTest {
     private TrackCommand command;
+
     @Override
     void init() {
         super.init();
@@ -37,6 +38,7 @@ public class TrackCommandTest extends CommandTest {
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);
     }
+
     @Test
     public void testCommandHandleWrongLinkNegative() {
         final String expected = "Provided link is invalid";
@@ -44,12 +46,11 @@ public class TrackCommandTest extends CommandTest {
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);
     }
+
     @Test
     public void testCommandHandleAlreadyTrackedNegative() {
         final String expected = "Link is already being tracked";
-        Link link = Link.builder()
-            .uri("yandex.ru/")
-            .build();
+        Link link = new Link("yandex.ru/");
         List<Link> list = new ArrayList<>();
         list.add(link);
         Mockito.doReturn(Optional.of(new User(1L, list))).when(userRepository).findById(Mockito.any(Long.class));
@@ -57,10 +58,15 @@ public class TrackCommandTest extends CommandTest {
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);
     }
+
     @Test
     public void testCommandHandleAddedPositive() {
         final String expected = "Link was added to tracking list!";
-        Mockito.doReturn(Optional.of(new User(1L, new ArrayList<>()))).when(userRepository).findById(Mockito.any(Long.class));
+        User user = User.builder()
+            .id(1L)
+            .links(new ArrayList<>())
+            .build();
+        Mockito.doReturn(Optional.of(user)).when(userRepository).findById(Mockito.any(Long.class));
         Mockito.doReturn("/track http://google.com").when(message).text();
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);

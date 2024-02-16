@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class UserRepositoryTest {
     private final UserRepository userRepository = new UserRepository();
+
     @Test
     void testAddPositive() {
         User user = User.builder()

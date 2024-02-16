@@ -1,5 +1,6 @@
 package edu.java.bot.command;
 
+import edu.java.bot.entity.User;
 import edu.java.bot.processor.StartMessageProcessor;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StartCommandTest extends CommandTest {
     private StartCommand command;
+
     @Override
     void init() {
         super.init();
@@ -24,7 +26,15 @@ public class StartCommandTest extends CommandTest {
     }
 
     @Test
-    public void testCommandHandlePositive() {
+    public void testCommandHandleNonRegisteredPositive() {
+        final String expected = "Welcome, null, use /help to see the help page";
+        Object text = command.handle(update).getParameters().get("text");
+        assertEquals(expected, text);
+    }
+
+    @Test
+    public void testCommandHandleRegisteredPositive() {
+        userRepository.save(new User(123L, null));
         final String expected = "Welcome, null, use /help to see the help page";
         Object text = command.handle(update).getParameters().get("text");
         assertEquals(expected, text);

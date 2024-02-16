@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class HelpCommandTest extends CommandTest {
     private HelpCommand command;
+
     @Override
     void init() {
         super.init();
@@ -30,7 +32,8 @@ public class HelpCommandTest extends CommandTest {
 
     @Test
     public void testCommandHandlePositive() {
-        final String expected = "Available commands: \n<b>/start</b> - start the bot\n<b>/help</b> - show available commands\n";
+        final String expected =
+            "Available commands: \n<b>/start</b> - start the bot\n<b>/help</b> - show available commands\n";
         Object text = command.handle(update).getParameters().get("text");
         assertEquals(expected, text);
     }

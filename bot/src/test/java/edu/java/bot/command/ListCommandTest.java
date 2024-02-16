@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListCommandTest extends CommandTest {
     private ListCommand command;
+
     @Override
     void init() {
         super.init();
@@ -40,9 +41,10 @@ public class ListCommandTest extends CommandTest {
     public void testCommandHandleHasLinksPositive() {
         final String expected = "Tracked links: \n<b>1)</b> - yandex.ru\n";
         Link link = Link.builder()
-                .uri("yandex.ru")
-                .build();
-        Mockito.doReturn(Optional.of(new User(1L, List.of(link)))).when(userRepository).findById(Mockito.any(Long.class));
+            .uri("yandex.ru")
+            .build();
+        Mockito.doReturn(Optional.of(new User(1L, List.of(link)))).when(userRepository)
+            .findById(Mockito.any(Long.class));
         Object text = command.handle(update).getParameters().get("text");
         assertEquals(expected, text);
     }

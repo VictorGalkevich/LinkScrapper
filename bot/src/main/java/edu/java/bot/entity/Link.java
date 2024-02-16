@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Link {
     private String uri;
-    private String secondLevelDomain;
-    private String firstLevelDomain;
 }

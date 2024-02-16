@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UntrackCommandTest extends CommandTest {
     private UntrackCommand command;
+
     @Override
     void init() {
         super.init();
@@ -37,6 +38,7 @@ public class UntrackCommandTest extends CommandTest {
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);
     }
+
     @Test
     public void testCommandHandleWrongLinkNegative() {
         final String expected = "Provided link is invalid";
@@ -44,14 +46,17 @@ public class UntrackCommandTest extends CommandTest {
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);
     }
+
     @Test
     public void testCommandHandleIsNotTrackedNegative() {
         final String expected = "Link is not being tracked";
-        Mockito.doReturn(Optional.of(new User(1L, new ArrayList<>()))).when(userRepository).findById(Mockito.any(Long.class));
+        Mockito.doReturn(Optional.of(new User(1L, new ArrayList<>()))).when(userRepository)
+            .findById(Mockito.any(Long.class));
         Mockito.doReturn("/track yandex.ru").when(message).text();
         Object actual = command.handle(update).getParameters().get("text");
         assertEquals(expected, actual);
     }
+
     @Test
     public void testCommandHandleRemovedPositive() {
         final String expected = "Link was removed from tracking list!";

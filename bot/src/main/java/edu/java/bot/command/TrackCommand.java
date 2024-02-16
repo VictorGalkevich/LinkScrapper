@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class TrackCommand implements Command{
+public class TrackCommand implements Command {
     private static final String DESCRIPTION = "start tracking a link";
     private static final String NAME = "/track";
     private final TrackMessageProcessor trackMessageProcessor;

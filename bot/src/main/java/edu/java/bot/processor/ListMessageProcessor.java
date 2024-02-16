@@ -6,16 +6,16 @@ import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.entity.Link;
 import edu.java.bot.entity.User;
 import edu.java.bot.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class ListMessageProcessor implements UserMessageProcessor {
     private final UserRepository userRepository;
-    private final String TEMPLATE = "<b>%s)</b> - %s\n";
+    private static final String TEMPLATE = "<b>%s)</b> - %s\n";
 
     @Override
     public SendMessage process(Update update) {
