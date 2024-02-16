@@ -1,9 +1,11 @@
 package edu.java.bot.tgbot;
 
+import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.request.SetMyCommands;
 import edu.java.bot.command.Command;
 import edu.java.bot.command.StartCommand;
 import edu.java.bot.configuration.ApplicationConfig;
@@ -66,5 +68,15 @@ public class MyBotTest {
         String expected = "Sorry, I can't proceed this type of message. \nAvailable commands: /help";
         String actual = (String) invoke.getParameters().get("text");
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @SneakyThrows
+    void testSetMenuCommands() {
+        Method setUpMenuCommands = MyBot.class.getDeclaredMethod("setUpMenuCommands");
+        setUpMenuCommands.setAccessible(true);
+        SetMyCommands invoke = (SetMyCommands) setUpMenuCommands.invoke(mybot);
+        BotCommand actual = ((BotCommand[]) invoke.getParameters().get("commands"))[0];
+        assertTrue(actual.command().equals("/start"));
     }
 }

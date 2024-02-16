@@ -28,7 +28,7 @@ public class MyBot extends TelegramBot {
                 log.error(e.getLocalizedMessage());
             }
         });
-        this.setUpMenuCommands();
+        execute(setUpMenuCommands());
     }
 
     public int process(List<Update> updates) {
@@ -66,9 +66,9 @@ public class MyBot extends TelegramBot {
         return command;
     }
 
-    private void setUpMenuCommands() {
-        execute(new SetMyCommands(commands.stream()
+    private SetMyCommands setUpMenuCommands() {
+        return new SetMyCommands(commands.stream()
             .map(Command::toApiCommand)
-            .toArray(BotCommand[]::new)));
+            .toArray(BotCommand[]::new));
     }
 }
