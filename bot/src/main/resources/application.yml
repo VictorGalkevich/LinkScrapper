@@ -1,14 +1,18 @@
 app:
-  telegram-token: unset
+  telegram-token: 6446882649:AAH9OJCjlZubXmecrIV7zKTsfn03poMFuXU
 
 spring:
   application:
     name: bot
   jackson:
     time-zone: UTC
+  devtools:
+    restart:
+      enabled: false
 
 server:
   port: 8090
 
 logging:
   config: classpath:log4j2-plain.xml
+
