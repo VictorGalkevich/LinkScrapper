@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Link {
     private String uri;
+    private String host;
+    private String protocol;
 }

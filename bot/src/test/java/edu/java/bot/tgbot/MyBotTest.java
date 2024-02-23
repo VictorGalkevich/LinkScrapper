@@ -1,58 +1,57 @@
 package edu.java.bot.tgbot;
 
+import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.BotCommand;
-import com.pengrad.telegrambot.model.Chat;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import edu.java.bot.command.Command;
 import edu.java.bot.command.StartCommand;
-import edu.java.bot.configuration.ApplicationConfig;
+import edu.java.bot.command.UnknownCommand;
+import edu.java.bot.configuration.CommandConfig;
 import edu.java.bot.processor.StartMessageProcessor;
-import edu.java.bot.repository.UserRepository;
+import edu.java.bot.processor.UnknownMessageProcessor;
+import edu.java.bot.processor.UserMessageProcessor;
+import edu.java.bot.tgbot.model.BotUpdate;
+import edu.java.bot.tgbot.request.SendMessage;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MyBotTest {
     private MyBot mybot;
-    private Update update;
-    private Message message;
+    private BotUpdate update;
 
     @BeforeEach
     void init() {
-        ApplicationConfig conf = Mockito.spy(new ApplicationConfig("asd"));
-        List<Command> cmds = List.of(new StartCommand(new StartMessageProcessor(new UserRepository())));
-        mybot = Mockito.spy(new MyBot(conf, cmds));
-        update = Mockito.spy(new Update());
-        message = Mockito.spy(new Message());
-        Mockito.doReturn(message).when(update).message();
-        Chat chat = Mockito.spy(new Chat());
-        Mockito.doReturn(chat).when(message).chat();
-        Mockito.doReturn(123L).when(chat).id();
+        TelegramBot tgbot = Mockito.spy(new TelegramBot("token"));
+        CommandConfig config = new CommandConfig();
+        List<Command> cmds = List.of(new StartCommand(config));
+        List<UserMessageProcessor> procs = List.of(new StartMessageProcessor(null), new UnknownMessageProcessor());
+        mybot = Mockito.spy(new MyBot(cmds, procs, tgbot, null));
+        update = Mockito.spy(new BotUpdate(null));
     }
 
     @Test
     @SneakyThrows
     void testUnknownCommandTypeNegative() {
-        Mockito.doReturn("/unknown").when(message).text();
-        Method retrieveCommand = MyBot.class.getDeclaredMethod("retrieveCommand", Update.class);
+        Mockito.doReturn("/unknown").when(update).text();
+        Method retrieveCommand = MyBot.class.getDeclaredMethod("retrieveCommand", BotUpdate.class);
         retrieveCommand.setAccessible(true);
         Object invoke = retrieveCommand.invoke(mybot, update);
-        assertNull(invoke);
+        assertTrue(invoke instanceof UnknownCommand);
     }
 
     @Test
     @SneakyThrows
     void testExistingCommandTypePositive() {
-        Mockito.doReturn("/start").when(message).text();
-        Method retrieveCommand = MyBot.class.getDeclaredMethod("retrieveCommand", Update.class);
+        Mockito.doReturn("/start").when(update).text();
+        Method retrieveCommand = MyBot.class.getDeclaredMethod("retrieveCommand", BotUpdate.class);
         retrieveCommand.setAccessible(true);
         Object invoke = retrieveCommand.invoke(mybot, update);
         assertTrue(invoke instanceof StartCommand);
@@ -61,12 +60,13 @@ public class MyBotTest {
     @Test
     @SneakyThrows
     void testUnknownMessageTypePositive() {
-        Mockito.doReturn("test").when(message).text();
-        Method preProcess = MyBot.class.getDeclaredMethod("preProcess", Update.class);
+        Mockito.doReturn("test").when(update).text();
+        Mockito.doReturn(1L).when(update).id();
+        Method preProcess = MyBot.class.getDeclaredMethod("processUpdate", BotUpdate.class);
         preProcess.setAccessible(true);
         SendMessage invoke = (SendMessage) preProcess.invoke(mybot, update);
         String expected = "Sorry, I can't proceed this type of message. \nAvailable commands: /help";
-        String actual = (String) invoke.getParameters().get("text");
+        String actual =  invoke.text();
         assertEquals(expected, actual);
     }
 
@@ -77,6 +77,6 @@ public class MyBotTest {
         setUpMenuCommands.setAccessible(true);
         SetMyCommands invoke = (SetMyCommands) setUpMenuCommands.invoke(mybot);
         BotCommand actual = ((BotCommand[]) invoke.getParameters().get("commands"))[0];
-        assertTrue(actual.command().equals("/start"));
+        assertEquals("/start", actual.command());
     }
 }

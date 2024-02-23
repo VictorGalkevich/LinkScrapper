@@ -1,26 +1,33 @@
 package edu.java.bot.processor;
 
-import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.command.Command;
+import edu.java.bot.command.HelpCommand;
+import edu.java.bot.tgbot.model.BotUpdate;
+import edu.java.bot.tgbot.request.SendMessage;
 import java.util.List;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+
+
 @Component
-@Setter
-public class HelpMessageProcessor implements UserMessageProcessor {
-    private List<Command> commands;
-    private static final String TEMPLATE = "<b>%s</b> - %s\n";
+@RequiredArgsConstructor
+public class HelpMessageProcessor extends UserMessageProcessor {
+    private final List<Command> commands;
+    private final String help;
 
     @Override
-    public SendMessage process(Update update) {
-        StringBuilder message = new StringBuilder("Available commands: \n");
-        for (Command command : commands) {
-            message.append(TEMPLATE.formatted(command.command(), command.description()));
+    public SendMessage process(Command command, BotUpdate update) {
+        if (command instanceof HelpCommand) {
+            StringBuilder message = new StringBuilder("Available commands: \n");
+            for (Command cmd : commands) {
+                message.append(help.formatted(cmd.command(), cmd.description()));
+            }
+            return new SendMessage(update.id(), message.toString())
+                    .parseMode(ParseMode.HTML);
+        } else {
+            return null;
         }
-        return new SendMessage(update.message().chat().id(), message.toString())
-            .parseMode(ParseMode.HTML);
     }
 }

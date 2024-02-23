@@ -1,38 +1,46 @@
 package edu.java.bot.processor;
 
-import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.request.SendMessage;
+import edu.java.bot.command.Command;
+import edu.java.bot.command.ListCommand;
 import edu.java.bot.entity.Link;
 import edu.java.bot.entity.User;
 import edu.java.bot.repository.UserRepository;
+import edu.java.bot.tgbot.model.BotUpdate;
+import edu.java.bot.tgbot.request.SendMessage;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+
+
 @Component
 @RequiredArgsConstructor
-public class ListMessageProcessor implements UserMessageProcessor {
+public class ListMessageProcessor extends UserMessageProcessor {
     private final UserRepository userRepository;
-    private static final String TEMPLATE = "<b>%s)</b> - %s\n";
+    private final String list;
 
     @Override
-    public SendMessage process(Update update) {
-        Long id = update.message().chat().id();
-        List<Link> links = userRepository.findById(id)
-            .map(User::getLinks)
-            .orElseGet(ArrayList::new);
-        StringBuilder message;
-        if (!links.isEmpty()) {
-            message = new StringBuilder("Tracked links: \n");
-            int cnt = 1;
-            for (Link link : links) {
-                message.append(TEMPLATE.formatted(cnt++, link.getUri()));
+    public SendMessage process(Command command, BotUpdate update) {
+        if (command instanceof ListCommand) {
+            Long id = update.id();
+            List<Link> links = userRepository.findById(id)
+                    .map(User::getLinks)
+                    .orElseGet(ArrayList::new);
+            StringBuilder message;
+            if (!links.isEmpty()) {
+                message = new StringBuilder("Tracked links: \n");
+                int cnt = 1;
+                for (Link link : links) {
+                    message.append(list.formatted(cnt++, link.getUri()));
+                }
+            } else {
+                message = new StringBuilder("You are not tracking any links yet");
             }
+            return new SendMessage(id, message.toString()).parseMode(ParseMode.HTML);
         } else {
-            message = new StringBuilder("You are not tracking any links yet");
+            return null;
         }
-        return new SendMessage(id, message.toString()).parseMode(ParseMode.HTML);
     }
 }

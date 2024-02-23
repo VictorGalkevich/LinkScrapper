@@ -1,19 +1,14 @@
 package edu.java.bot.command;
 
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.processor.HelpMessageProcessor;
-import java.util.List;
+import edu.java.bot.configuration.CommandConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class HelpCommand implements Command {
-    private static final String DESCRIPTION = "show available commands";
-    private final List<Command> commands;
+    private final CommandConfig config;
     private static final String NAME = "/help";
-    private final HelpMessageProcessor helpMessageProcessor;
 
     @Override
     public String command() {
@@ -22,13 +17,6 @@ public class HelpCommand implements Command {
 
     @Override
     public String description() {
-        return DESCRIPTION;
-    }
-
-    @Override
-    public SendMessage handle(Update update) {
-        commands.add(this);
-        helpMessageProcessor.setCommands(commands);
-        return helpMessageProcessor.process(update);
+        return config.getHelp();
     }
 }

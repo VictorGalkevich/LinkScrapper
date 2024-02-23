@@ -1,3 +1,7 @@
+command:
+  description:
+    start: start using the bot
+
 app:
   telegram-token: ${BOT_TOKEN}
 

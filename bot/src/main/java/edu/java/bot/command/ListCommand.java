@@ -1,17 +1,14 @@
 package edu.java.bot.command;
 
-import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.processor.ListMessageProcessor;
+import edu.java.bot.configuration.CommandConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class ListCommand implements Command {
-    private static final String DESCRIPTION = "show all tracked links";
+    private final CommandConfig config;
     private static final String NAME = "/list";
-    private final ListMessageProcessor listMessageProcessor;
 
     @Override
     public String command() {
@@ -20,11 +17,6 @@ public class ListCommand implements Command {
 
     @Override
     public String description() {
-        return DESCRIPTION;
-    }
-
-    @Override
-    public SendMessage handle(Update update) {
-        return listMessageProcessor.process(update);
+        return config.getList();
     }
 }

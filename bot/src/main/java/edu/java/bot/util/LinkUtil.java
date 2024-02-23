@@ -1,26 +1,26 @@
 package edu.java.bot.util;
 
 import edu.java.bot.entity.Link;
-import java.util.regex.Pattern;
+import java.net.URI;
+import java.net.URL;
 import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Component;
-import static java.util.regex.Pattern.compile;
 
-@Component
 @UtilityClass
 public class LinkUtil {
-    private static final Pattern PATTERN =
-        compile("^(https?://)?([^.]+\\.)*(?<secondLevelDomain>[^. ]+)\\.(?<firstLevelDomain>[^. ]+)(/([^. ]+)?)?");
 
-    public static Link parse(String uri) {
-        return Link.builder()
-            .uri(uri.charAt(uri.length() - 1) == '/'
-                ? uri
-                : uri + "/")
-            .build();
-    }
-
-    public static boolean isValid(String obj) {
-        return PATTERN.matcher(obj).matches();
+    public static Link parse(String str) {
+        try {
+            URI uri = URI.create(str);
+            URL url = uri.toURL();
+            return Link.builder()
+                    .uri(url.toString().charAt(str.length() - 1) == '/'
+                            ? str
+                            : str + "/")
+                    .host(url.getHost())
+                    .protocol(url.getProtocol())
+                    .build();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

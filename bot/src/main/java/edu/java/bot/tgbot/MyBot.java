@@ -3,60 +3,57 @@ package edu.java.bot.tgbot;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
-import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import edu.java.bot.command.Command;
-import edu.java.bot.configuration.ApplicationConfig;
+import edu.java.bot.command.UnknownCommand;
+import edu.java.bot.mapper.UpdateMapper;
+import edu.java.bot.processor.UserMessageProcessor;
+import edu.java.bot.tgbot.model.BotUpdate;
+import edu.java.bot.tgbot.request.SendMessage;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import static com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_ALL;
 
 @Component
-@Slf4j
-public class MyBot extends TelegramBot {
+@RequiredArgsConstructor
+public class MyBot implements Bot {
     private final List<Command> commands;
+    private final List<UserMessageProcessor> processors;
+    private final TelegramBot bot;
+    private final UpdateMapper mapper;
 
-    public MyBot(ApplicationConfig conf, List<Command> commands) {
-        super(conf.telegramToken());
-        this.commands = commands;
-        this.setUpdatesListener(this::process, e -> {
-            if (e.response() != null) {
-                e.response().errorCode();
-                e.response().description();
-            } else {
-                log.error(e.getLocalizedMessage());
-            }
-        });
-        execute(setUpMenuCommands());
+    @Override
+    @PostConstruct
+    public void start() {
+        bot.setUpdatesListener(this);
+        bot.execute(setUpMenuCommands());
     }
 
-    public int process(List<Update> updates) {
-        for (Update update : updates) {
-            if (update.message() != null) {
-                execute(preProcess(update));
+    @Override
+    public int process(List<Update> list) {
+        List<BotUpdate> botUpdates = mapper.mapToList(list);
+        for (BotUpdate update : botUpdates) {
+            if (!update.isMessageNull()) {
+                bot.execute(processUpdate(update));
             }
         }
         return CONFIRMED_UPDATES_ALL;
     }
 
-    private SendMessage preProcess(Update update) {
-        SendMessage message;
+    private SendMessage processUpdate(BotUpdate update) {
         Command cmd = retrieveCommand(update);
-        if (cmd != null) {
-            message = cmd.handle(update);
-        } else {
-            message = new SendMessage(
-                update.message().chat().id(),
-                "Sorry, I can't proceed this type of message. \nAvailable commands: /help"
-            );
-        }
-        return message;
+        return processors.stream()
+            .map(x -> x.process(cmd, update))
+            .filter(Objects::nonNull)
+            .findFirst()
+            .orElseThrow();
     }
 
-    private Command retrieveCommand(Update update) {
-        String text = update.message().text();
-        Command command = null;
+    private Command retrieveCommand(BotUpdate update) {
+        String text = update.text();
+        Command command = new UnknownCommand();
         for (Command value : commands) {
             if (text.startsWith(value.command())) {
                 command = value;
