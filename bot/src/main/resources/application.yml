@@ -1,9 +1,16 @@
+command:
+  description:
+    start: start using the bot
+
 app:
-  telegram-token: unset
+  telegram-token: ${BOT_TOKEN}
 
 spring:
   application:
     name: bot
+  devtools:
+    restart:
+      enabled: false
   jackson:
     time-zone: UTC
 
@@ -12,3 +19,4 @@ server:
 
 logging:
   config: classpath:log4j2-plain.xml
+
