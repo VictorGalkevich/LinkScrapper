@@ -1,10 +1,10 @@
 package edu.java.bot.processor;
 
-import com.pengrad.telegrambot.model.request.ParseMode;
 import edu.java.bot.command.Command;
 import edu.java.bot.command.ListCommand;
 import edu.java.bot.entity.Link;
 import edu.java.bot.entity.User;
+import edu.java.bot.formatter.Formatter;
 import edu.java.bot.repository.UserRepository;
 import edu.java.bot.tgbot.model.BotUpdate;
 import edu.java.bot.tgbot.request.SendMessage;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 public class ListMessageProcessor extends UserMessageProcessor {
     private final UserRepository userRepository;
     private final String list;
+    private final Formatter formatter;
 
     @Override
     public SendMessage process(Command command, BotUpdate update) {
@@ -38,7 +39,7 @@ public class ListMessageProcessor extends UserMessageProcessor {
             } else {
                 message = new StringBuilder("You are not tracking any links yet");
             }
-            return new SendMessage(id, message.toString()).parseMode(ParseMode.HTML);
+            return new SendMessage(id, message.toString()).parseMode(formatter.parseMode());
         } else {
             return null;
         }

@@ -1,5 +1,7 @@
 package edu.java.bot.formatter;
 
+import com.pengrad.telegrambot.model.request.ParseMode;
+
 public class HTMLFormatter implements Formatter {
     @Override
     public String bold(String str) {
@@ -9,6 +11,11 @@ public class HTMLFormatter implements Formatter {
     @Override
     public String italic(String str) {
         return "<i>" + str + "</i>";
+    }
+
+    @Override
+    public ParseMode parseMode() {
+        return ParseMode.HTML;
     }
 
     @Override

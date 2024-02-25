@@ -20,7 +20,8 @@ public class HelpMessageProcessorTest extends ProcessorTest {
         processor = new HelpMessageProcessor(
                 List.of(
                         command
-                ), formatter.bold("%s") + " - %s\n");
+                ), formatter.bold("%s") + " - %s\n",
+                formatter);
     }
 
     @Test

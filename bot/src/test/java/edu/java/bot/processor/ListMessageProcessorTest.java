@@ -23,7 +23,8 @@ public class ListMessageProcessorTest extends ProcessorTest {
         formatter = new HTMLFormatter();
         processor = new ListMessageProcessor(
                 userRepository,
-                formatter.bold("%s)") + " - %s\n");
+                formatter.bold("%s)") + " - %s\n",
+                formatter);
     }
     @Test
     public void testCommandHandleNoLinksTrackedNegative() {
