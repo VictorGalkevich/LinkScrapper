@@ -1,9 +1,12 @@
-command:
-  description:
-    start: start using the bot
-
 app:
   telegram-token: ${BOT_TOKEN}
+  command:
+    description:
+      start: start using the bot
+  update-message: ${update-message:The link %s has recent updates :%s}
+  scrapper:
+    route: http://localhost:8080
+
 
 spring:
   application:
