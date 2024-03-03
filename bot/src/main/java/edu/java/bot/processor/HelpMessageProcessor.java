@@ -9,8 +9,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 @RequiredArgsConstructor
 public class HelpMessageProcessor extends UserMessageProcessor {
@@ -26,7 +24,7 @@ public class HelpMessageProcessor extends UserMessageProcessor {
                 message.append(help.formatted(cmd.command(), cmd.description()));
             }
             return new SendMessage(update.id(), message.toString())
-                    .parseMode(formatter.parseMode());
+                .parseMode(formatter.parseMode());
         } else {
             return null;
         }

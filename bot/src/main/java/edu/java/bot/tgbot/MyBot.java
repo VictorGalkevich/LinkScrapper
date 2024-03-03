@@ -3,7 +3,9 @@ package edu.java.bot.tgbot;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SetMyCommands;
+import com.pengrad.telegrambot.response.BaseResponse;
 import edu.java.bot.command.Command;
 import edu.java.bot.command.UnknownCommand;
 import edu.java.bot.mapper.UpdateMapper;
@@ -29,6 +31,11 @@ public class MyBot implements Bot {
     public void start() {
         bot.setUpdatesListener(this);
         bot.execute(setUpMenuCommands());
+    }
+
+    @Override
+    public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(BaseRequest<T, R> request) {
+        bot.execute(request);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package edu.java.bot.controller;
 
-import edu.java.bot.dto.LinkUpdate;
 import edu.java.bot.service.UpdateService;
+import edu.java.dto.request.LinkUpdate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,7 +20,7 @@ public class UpdateController {
     @Operation(summary = "Send updates")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
-        @ApiResponse(responseCode = "200", description = "Updates proceeded") })
+        @ApiResponse(responseCode = "200", description = "Updates proceeded")})
     public void proceedUpdates(LinkUpdate update) {
         updateService.proceedUpdates(update);
     }

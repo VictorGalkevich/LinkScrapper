@@ -1,28 +1,27 @@
 package edu.java.bot.processor;
 
 import edu.java.bot.command.TrackCommand;
-import edu.java.bot.entity.Link;
-import edu.java.bot.entity.User;
-import edu.java.bot.util.LinkUtil;
+import edu.java.bot.exception.ApiResponseException;
+import edu.java.dto.request.AddLinkRequest;
+import edu.java.dto.response.ApiErrorResponse;
+import edu.java.dto.response.LinkResponse;
+import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrackMessageProcessorTest extends ProcessorTest {
-    private User mockUser;
+
     @Override
     void init() {
         super.init();
         command = new TrackCommand(config);
         processor = new TrackMessageProcessor(
-                userRepository);
-        mockUser = new User(MOCKED_USER_ID, new ArrayList<>());
+            scrapperClient);
     }
+
     @Test
     public void testCommandHandleOneArgumentNegative() {
         final String expected = "/track syntax might be [/track <link>]";
@@ -35,7 +34,6 @@ public class TrackMessageProcessorTest extends ProcessorTest {
     public void testCommandHandleWrongLinkNegative() {
         final String expected = "Provided link is invalid";
         Mockito.doReturn("/track yandex").when(update).text();
-        Mockito.doReturn(Optional.of(mockUser)).when(userRepository).findById(MOCKED_USER_ID);
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
     }
@@ -43,10 +41,11 @@ public class TrackMessageProcessorTest extends ProcessorTest {
     @Test
     public void testCommandHandleAlreadyTrackedNegative() {
         final String expected = "Link is already being tracked";
-        Link link = LinkUtil.parse("http://yandex.ru");
-        mockUser.getLinks().add(link);
-        Mockito.doReturn(Optional.of(mockUser)).when(userRepository).findById(Mockito.any(Long.class));
-        Mockito.doReturn("/track http://yandex.ru").when(update).text();
+        Mockito.doReturn("/track " + MOCKED_LINK).when(update).text();
+        ApiErrorResponse mock = Mockito.mock(ApiErrorResponse.class);
+        Mockito.doReturn("Link is already being tracked").when(mock).description();
+        Mockito.doReturn(Mono.error(new ApiResponseException(mock)))
+            .when(scrapperClient).addLink(Mockito.any(), Mockito.any());
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
     }
@@ -54,10 +53,11 @@ public class TrackMessageProcessorTest extends ProcessorTest {
     @Test
     public void testCommandHandleAddedPositive() {
         final String expected = "Link was added to tracking list!";
-        Mockito.doReturn(Optional.of(mockUser)).when(userRepository).findById(Mockito.any(Long.class));
-        Mockito.doReturn("/track http://google.com").when(update).text();
+        Mockito.doReturn("/track " + MOCKED_LINK).when(update).text();
+        AddLinkRequest request = Mockito.spy(new AddLinkRequest(URI.create(MOCKED_LINK)));
+        Mockito.doReturn(Mono.just(ResponseEntity.ok().body(new LinkResponse(MOCKED_LINK_ID, request.link()))))
+            .when(scrapperClient).addLink(Mockito.any(), Mockito.any());
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
-        assertThat(mockUser.getLinks()).hasSize(1);
     }
 }

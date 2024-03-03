@@ -1,28 +1,26 @@
 package edu.java.bot.processor;
 
 import edu.java.bot.command.UntrackCommand;
-import edu.java.bot.entity.Link;
-import edu.java.bot.entity.User;
-import edu.java.bot.util.LinkUtil;
-import org.assertj.core.api.Assertions;
+import edu.java.bot.exception.ApiResponseException;
+import edu.java.dto.response.ApiErrorResponse;
+import edu.java.dto.response.LinkResponse;
+import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
+import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UntrackMessageProcessorTest extends ProcessorTest {
-    private User mockUser;
+
     @Override
     void init() {
         super.init();
         command = new UntrackCommand(config);
         processor = new UntrackMessageProcessor(
-                userRepository);
-        mockUser = new User(MOCKED_USER_ID, new ArrayList<>());
+            scrapperClient);
     }
+
     @Test
     public void testCommandHandleOneArgumentNegative() {
         final String expected = "/untrack syntax might be [/untrack <link>]";
@@ -35,7 +33,6 @@ public class UntrackMessageProcessorTest extends ProcessorTest {
     public void testCommandHandleWrongLinkNegative() {
         final String expected = "Provided link is invalid";
         Mockito.doReturn("/untrack yandex").when(update).text();
-        Mockito.doReturn(Optional.of(mockUser)).when(userRepository).findById(MOCKED_USER_ID);
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
     }
@@ -43,9 +40,13 @@ public class UntrackMessageProcessorTest extends ProcessorTest {
     @Test
     public void testCommandHandleIsNotTrackedNegative() {
         final String expected = "Link is not being tracked";
-        Mockito.doReturn(Optional.of(mockUser)).when(userRepository)
-                .findById(Mockito.any(Long.class));
-        Mockito.doReturn("/untrack http://yandex.ru").when(update).text();
+        Mockito.doReturn("/untrack " + MOCKED_LINK).when(update).text();
+
+        ApiErrorResponse mock = Mockito.mock(ApiErrorResponse.class);
+        Mockito.doReturn("Link is not being tracked").when(mock).description();
+        Mockito.doReturn(Mono.error(new ApiResponseException(mock)))
+            .when(scrapperClient).remove(Mockito.any(), Mockito.any());
+
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
     }
@@ -53,12 +54,14 @@ public class UntrackMessageProcessorTest extends ProcessorTest {
     @Test
     public void testCommandHandleRemovedPositive() {
         final String expected = "Link was removed from tracking list!";
-        Link link = LinkUtil.parse("http://google.com/");
-        mockUser.getLinks().add(link);
-        Mockito.doReturn(Optional.of(mockUser)).when(userRepository).findById(Mockito.any(Long.class));
-        Mockito.doReturn("/untrack http://google.com").when(update).text();
+        Mockito.doReturn("/untrack " + MOCKED_LINK).when(update).text();
+
+        URI uri = Mockito.spy(URI.create(MOCKED_LINK));
+
+        Mockito.doReturn(Mono.just(ResponseEntity.ok().body(new LinkResponse(MOCKED_LINK_ID, uri))))
+            .when(scrapperClient).remove(Mockito.any(), Mockito.any());
+
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
-        Assertions.assertThat(mockUser.getLinks()).hasSize(0);
     }
 }

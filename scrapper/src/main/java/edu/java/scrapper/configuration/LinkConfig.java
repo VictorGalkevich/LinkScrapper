@@ -10,4 +10,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class LinkConfig {
     private String github = "https://api.github.com";
     private String stackoverflow = "https://api.stackexchange.com/2.3";
+    private String bot = "http://localhost:8090";
 }

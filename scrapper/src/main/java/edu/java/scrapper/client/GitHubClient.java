@@ -10,8 +10,8 @@ public class GitHubClient extends Client {
 
     public Mono<GitHubResponseDto> getRepositoryInfo(String ownerAndRepo) {
         return client().get()
-                .uri("/repos/" + ownerAndRepo)
-                .retrieve()
-                .bodyToMono(GitHubResponseDto.class);
+            .uri("/repos/" + ownerAndRepo)
+            .retrieve()
+            .bodyToMono(GitHubResponseDto.class);
     }
 }

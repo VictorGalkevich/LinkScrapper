@@ -335,7 +335,8 @@
         <module name="HideUtilityClassConstructor"/>
         <module name="SuppressionXpathSingleFilter">
             <property name="checks" value="HideUtilityClassConstructor"/>
-            <property name="query" value="//*[MODIFIERS//*[@text = 'UtilityClass' or @text='NoArgsConstructor' or @text = 'SpringBootApplication']]/descendant-or-self::node()"/>
+            <property name="query"
+                      value="//*[MODIFIERS//*[@text = 'UtilityClass' or @text='NoArgsConstructor' or @text = 'SpringBootApplication']]/descendant-or-self::node()"/>
         </module>
         <module name="InnerTypeLast"/>
         <!--<module name="InterfaceIsType"/>-->
@@ -394,7 +395,8 @@
             <property name="message" value="Using System.out for logging is a bad practice. Use a logger instead."/>
         </module>
         <module name="RegexpSinglelineJava">
-            <property name="format" value="javax\.annotation\.Nonnull|javax\.annotation\.Nullable|javax\.annotation\.ParametersAreNonnullByDefault|javax\.annotation\.ParametersAreNullableByDefault|org\.springframework\.lang\.Nullable|org\.springframework\.lang\.NonNull|org\.springframework\.lang\.NonNullApi|org\.springframework\.lang\.NonNullFields|edu\.umd\.cs\.findbugs\.annotations\.Nullable|edu\.umd\.cs\.findbugs\.annotations\.NonNull"/>
+            <property name="format"
+                      value="javax\.annotation\.Nonnull|javax\.annotation\.Nullable|javax\.annotation\.ParametersAreNonnullByDefault|javax\.annotation\.ParametersAreNullableByDefault|org\.springframework\.lang\.Nullable|org\.springframework\.lang\.NonNull|org\.springframework\.lang\.NonNullApi|org\.springframework\.lang\.NonNullFields|edu\.umd\.cs\.findbugs\.annotations\.Nullable|edu\.umd\.cs\.findbugs\.annotations\.NonNull"/>
             <property name="ignoreComments" value="true"/>
             <property name="message" value="Use org.jetbrains.annotations.* for nullability."/>
         </module>

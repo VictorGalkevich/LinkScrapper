@@ -12,6 +12,6 @@ public class ClientConfig {
 
     @Bean
     public ScrapperClient scrapperClient() {
-        return new ScrapperClient(config.getRoute());
+        return new ScrapperClient(config.getRoute(), config);
     }
 }

@@ -12,14 +12,12 @@ import edu.java.bot.processor.UnknownMessageProcessor;
 import edu.java.bot.processor.UserMessageProcessor;
 import edu.java.bot.tgbot.model.BotUpdate;
 import edu.java.bot.tgbot.request.SendMessage;
+import java.lang.reflect.Method;
+import java.util.List;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.lang.reflect.Method;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -66,7 +64,7 @@ public class MyBotTest {
         preProcess.setAccessible(true);
         SendMessage invoke = (SendMessage) preProcess.invoke(mybot, update);
         String expected = "Sorry, I can't proceed this type of message. \nAvailable commands: /help";
-        String actual =  invoke.text();
+        String actual = invoke.text();
         assertEquals(expected, actual);
     }
 

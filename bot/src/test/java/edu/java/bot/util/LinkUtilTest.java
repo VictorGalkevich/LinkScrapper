@@ -1,32 +1,25 @@
 package edu.java.bot.util;
 
-import edu.java.bot.entity.Link;
+import java.net.URI;
 import org.junit.jupiter.api.Test;
-
-import static edu.java.bot.util.LinkUtil.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static edu.java.bot.util.LinkUtil.parse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class LinkUtilTest {
 
     @Test
     void testParseWithSlashPositive() {
         String text = "http://google.com/";
-        Link expected = Link.builder()
-                .host("google.com")
-                .protocol("http")
-                .uri(text)
-                .build();
+        URI expected = URI.create(text);
         assertEquals(expected, parse(text));
     }
 
     @Test
     void testParseWithoutSlashPositive() {
-        String text = "http://google.com";
-        Link expected = Link.builder()
-                .protocol("http")
-                .host("google.com")
-                .uri(text + "/")
-                .build();
+        String text = "http://google.com/";
+        URI expected = URI.create(text);
         assertEquals(expected, parse(text));
     }
 

@@ -3,7 +3,6 @@ package edu.java.bot.formatter;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MarkdownFormatterTest extends FormatterTest {

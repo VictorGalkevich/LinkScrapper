@@ -1,20 +1,19 @@
 package edu.java.scrapper.client;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
+import edu.java.scrapper.dto.StackOverflowResponseDto;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-
-
-import edu.java.scrapper.dto.StackOverflowResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StackOverflowClientTest extends ClientTest {
@@ -22,7 +21,8 @@ public class StackOverflowClientTest extends ClientTest {
     private static final String MOCKED_TITLE = "test_title";
     private static final Long MOCKED_QUESTION_ID = 123L;
     private static final Long EPOCH = 1590400952L;
-    private static final OffsetDateTime MOCKED_UPDATE_TIME = OffsetDateTime.ofInstant(Instant.ofEpochSecond(1590400952), ZoneId.of("Z"));
+    private static final OffsetDateTime MOCKED_UPDATE_TIME =
+        OffsetDateTime.ofInstant(Instant.ofEpochSecond(1590400952), ZoneId.of("Z"));
 
     @Autowired
     private StackOverflowClient client;
@@ -35,9 +35,9 @@ public class StackOverflowClientTest extends ClientTest {
     @Test
     public void assertThatExistsQuestionReturnedOk() {
         WIRE_MOCK_SERVER.stubFor(WireMock.get("/questions/" + MOCKED_QUESTION_ID + "?site=stackoverflow")
-                .willReturn(WireMock.ok()
-                        .withHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
-                        .withBody("""
+            .willReturn(WireMock.ok()
+                .withHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
+                .withBody("""
                     {
                         "items": [
                             {
@@ -58,9 +58,9 @@ public class StackOverflowClientTest extends ClientTest {
     @Test
     public void assertThatNonExistsQuestionReturnedOkAndEmptyList() {
         WIRE_MOCK_SERVER.stubFor(WireMock.get("/questions/" + MOCKED_QUESTION_ID + "?site=stackoverflow")
-                .willReturn(WireMock.ok()
-                        .withHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
-                        .withBody("""
+            .willReturn(WireMock.ok()
+                .withHeader("Content-type", MediaType.APPLICATION_JSON_VALUE)
+                .withBody("""
                     {
                         "items": []
                     }

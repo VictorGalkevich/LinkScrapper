@@ -1,37 +1,40 @@
 package edu.java.bot.processor;
 
+import edu.java.bot.client.ScrapperClient;
 import edu.java.bot.command.Command;
 import edu.java.bot.command.UntrackCommand;
-import edu.java.bot.entity.Link;
-import edu.java.bot.repository.UserRepository;
+import edu.java.bot.exception.ApiResponseException;
 import edu.java.bot.tgbot.model.BotUpdate;
 import edu.java.bot.tgbot.request.SendMessage;
+import edu.java.dto.request.RemoveLinkRequest;
+import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
 public class UntrackMessageProcessor extends UserLinkMessageProcessor {
-    private final UserRepository userRepository;
+    private final ScrapperClient client;
 
     @Override
     public SendMessage process(Command command, BotUpdate update) {
         if (command instanceof UntrackCommand) {
-            Link link;
+            URI link;
             Long id = update.id();
             try {
                 link = retrieveLink(update);
             } catch (RuntimeException e) {
                 return new SendMessage(id, getMessage(e, command));
             }
-            return userRepository.findById(id).map((it) -> {
-                if (!isTracked(link, it)) {
-                    return new SendMessage(id, "Link is not being tracked");
-                } else {
-                    it.getLinks().remove(link);
-                    return new SendMessage(id, "Link was removed from tracking list!");
-                }
-            }).orElseThrow(() -> new RuntimeException("User not present"));
+            String message = client.remove(id, new RemoveLinkRequest(link))
+                .map(resp -> "Link was removed from tracking list!")
+                .onErrorResume(
+                    ApiResponseException.class,
+                    err -> Mono.just(err.getResponse().description())
+                )
+                .block();
+            return new SendMessage(id, message);
         } else {
             return null;
         }

@@ -28,6 +28,7 @@
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
         <java-telegram-bot-api.version>7.0.1</java-telegram-bot-api.version>
         <swagger.version>2.3.0</swagger.version>
+        <netty.version.mac>4.1.73.Final</netty.version.mac>
 
         <!-- Tests -->
         <testcontainers.version>1.19.4</testcontainers.version>
@@ -49,6 +50,7 @@
     <modules>
         <module>bot</module>
         <module>scrapper</module>
+        <module>dto</module>
     </modules>
 
     <dependencyManagement>
@@ -123,6 +125,14 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Other -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty.version.mac}</version>
+            <classifier>osx-aarch_64</classifier>
         </dependency>
     </dependencies>
 

@@ -71,6 +71,18 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Other -->
+        <dependency>
+            <groupId>edu.java</groupId>
+            <artifactId>dto</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <classifier>osx-aarch_64</classifier>
+        </dependency>
+
         <!-- Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
