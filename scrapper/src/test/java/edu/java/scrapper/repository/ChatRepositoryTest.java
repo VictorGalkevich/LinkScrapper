@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UserRepositoryTest {
+public class ChatRepositoryTest {
     private final ChatRepository userRepository = new ChatRepository();
 
     @Test
