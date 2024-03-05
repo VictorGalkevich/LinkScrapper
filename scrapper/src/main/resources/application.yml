@@ -10,6 +10,12 @@ app:
 spring:
   application:
     name: scrapper
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  liquibase:
+    enabled: false
 
 server:
   port: 8080
