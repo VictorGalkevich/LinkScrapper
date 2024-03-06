@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS links
 CREATE TABLE IF NOT EXISTS assignment
 (
     id BIGSERIAL PRIMARY KEY,
-    chat_id BIGINT REFERENCES chats (id),
-    link_id BIGINT REFERENCES links (id),
+    chat_id BIGINT REFERENCES chats (id) ON DELETE CASCADE,
+    link_id BIGINT REFERENCES links (id) ON DELETE CASCADE,
     UNIQUE (chat_id, link_id)
 )

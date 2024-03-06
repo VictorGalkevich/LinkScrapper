@@ -1,12 +1,14 @@
 services:
   postgresql:
     image: postgres:16
+    secrets:
+      - db_password
     ports:
       - "5434:5432"
     environment:
       POSTGRES_DB: scrapper
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root1234
+      POSTGRES_PASSWORD:
     volumes:
       - postgresql:/var/lib/postgresql/data
     networks:
@@ -14,19 +16,24 @@ services:
 
   liquibase-migrations:
     image: liquibase/liquibase:4.25
+    secrets:
+      - db_password
     depends_on:
       - postgresql
     command:
       - --changelog-file=master.xml
       - --driver=org.postgresql.Driver
-      - --url=jdbc:postgresql://postgresql:5434/scrapper
+      - --url=jdbc:postgresql://postgresql:5432/scrapper
       - --username=postgres
-      - --password=root1234
+      - --password=
       - update
     volumes:
       - ./migrations:/liquibase/changelog
     networks:
       - backend
+secrets:
+  db_password:
+    file: password.txt
 
 volumes:
   postgresql: { }
