@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "command.description")
+@ConfigurationProperties(prefix = "app.command.description")
 @Getter
 @Setter
 public class CommandConfig {

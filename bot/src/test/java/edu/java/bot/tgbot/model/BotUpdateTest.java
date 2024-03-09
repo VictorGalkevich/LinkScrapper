@@ -6,14 +6,14 @@ import com.pengrad.telegrambot.model.Update;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BotUpdateTest {
     private static BotUpdate update;
     private static final Long MOCKED_USER_ID = 123L;
     private static final String MOCKED_USERNAME = "Petya";
     private static final String MOCKED_TEXT = "Test";
+
     @BeforeAll
     static void init() {
         Update source = Mockito.spy(new Update());

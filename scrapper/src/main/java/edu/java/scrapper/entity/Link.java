@@ -1,6 +1,5 @@
-package edu.java.bot.entity;
+package edu.java.scrapper.entity;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class Link {
     private Long id;
-    private List<Link> links;
+    private String uri;
+    private String host;
+    private String protocol;
 }

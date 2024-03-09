@@ -1,9 +1,6 @@
-command:
-  description:
-    start: start using the bot
-
 app:
   telegram-token: ${BOT_TOKEN}
+  update-message: ${update-message:The link %s has recent updates :%s}
 
 spring:
   application:

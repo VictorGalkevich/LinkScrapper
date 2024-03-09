@@ -10,8 +10,8 @@ public class ClientTest {
 
     @RegisterExtension
     protected static final WireMockExtension WIRE_MOCK_SERVER = WireMockExtension.newInstance()
-            .options(WireMockConfiguration.wireMockConfig().dynamicPort())
-            .build();
+        .options(WireMockConfiguration.wireMockConfig().dynamicPort())
+        .build();
 
     protected static void configureProperties(DynamicPropertyRegistry registry, String site) {
         registry.add(PREFIX + site, WIRE_MOCK_SERVER::baseUrl);
