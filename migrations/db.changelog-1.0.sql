@@ -3,7 +3,7 @@
 --changeset VictorGalkevich:1
 CREATE TABLE IF NOT EXISTS chats
 (
-    id            BIGSERIAL PRIMARY KEY,
+    id         BIGINT PRIMARY KEY,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     created_by VARCHAR(64)
 );
