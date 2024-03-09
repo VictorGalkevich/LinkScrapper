@@ -2,13 +2,11 @@ package edu.java.bot.mapper;
 
 import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.tgbot.model.BotUpdate;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UpdateMapperTest {
     private UpdateMapper mapper;
@@ -31,6 +29,7 @@ public class UpdateMapperTest {
         BotUpdate bupdate = mapper.map(update);
         assertThat(bupdate).hasFieldOrPropertyWithValue("update", update);
     }
+
     @Test
     void testMappingListNullPositive() {
         Update update = null;

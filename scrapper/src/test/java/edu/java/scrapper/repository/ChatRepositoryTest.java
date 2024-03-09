@@ -1,18 +1,17 @@
-package edu.java.bot.repository;
+package edu.java.scrapper.repository;
 
-import edu.java.bot.entity.User;
-
+import edu.java.scrapper.entity.Chat;
+import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
 
-public class UserRepositoryTest {
-    private final UserRepository userRepository = new UserRepository();
+public class ChatRepositoryTest {
+    private final ChatRepository userRepository = new ChatRepository();
 
     @Test
     void testAddPositive() {
-        User user = User.builder()
+        Chat user = Chat.builder()
             .id(123L)
             .links(new ArrayList<>())
             .build();
@@ -21,7 +20,7 @@ public class UserRepositoryTest {
 
     @Test
     void testFindByIdExistsPositive() {
-        User user = User.builder()
+        Chat user = Chat.builder()
             .id(123L)
             .links(new ArrayList<>())
             .build();

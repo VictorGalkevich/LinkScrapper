@@ -1,5 +1,6 @@
 package edu.java.scrapper.configuration;
 
+import edu.java.scrapper.client.BotClient;
 import edu.java.scrapper.client.GitHubClient;
 import edu.java.scrapper.client.StackOverflowClient;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,10 @@ public class ClientConfig {
     @Bean
     public StackOverflowClient stackoverflow() {
         return new StackOverflowClient(config.getStackoverflow());
+    }
+
+    @Bean
+    public BotClient bot() {
+        return new BotClient(config.getBot());
     }
 }

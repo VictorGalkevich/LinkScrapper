@@ -15,17 +15,18 @@ public class TemplateMessageConfigTest {
         formatter = new MarkdownFormatter();
         config = new TemplateMessageConfig(formatter);
     }
+
     @Test
     void testHelpString() {
         final String expected = formatter.bold("%s") + " - %s\n";
-        final String actual =  config.help();
+        final String actual = config.help();
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     void testListString() {
         final String expected = formatter.bold("%s") + " - %s\n";
-        final String actual =  config.help();
+        final String actual = config.help();
         Assertions.assertEquals(expected, actual);
     }
 }

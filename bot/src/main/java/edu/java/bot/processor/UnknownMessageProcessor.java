@@ -16,7 +16,7 @@ public class UnknownMessageProcessor extends UserMessageProcessor {
                 update.id(),
                 "Sorry, I can't proceed this type of message. \nAvailable commands: /help"
             );
-        } else  {
+        } else {
             return null;
         }
     }
