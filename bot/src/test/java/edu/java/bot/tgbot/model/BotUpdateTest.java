@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.Update;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BotUpdateTest {

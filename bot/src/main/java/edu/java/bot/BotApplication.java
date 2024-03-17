@@ -9,10 +9,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties({
-    ApplicationConfig.class,
-    CommandConfig.class,
-    ScrapperConfig.class
+        ApplicationConfig.class,
+        CommandConfig.class,
+        ScrapperConfig.class
 })
+@SuppressWarnings("")
 public class BotApplication {
     public static void main(String[] args) {
         SpringApplication.run(BotApplication.class, args);

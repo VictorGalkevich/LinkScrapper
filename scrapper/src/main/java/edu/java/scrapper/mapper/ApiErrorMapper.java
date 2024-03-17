@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 public class ApiErrorMapper {
     public ApiErrorResponse map(ScrapperException object, String description) {
         return new ApiErrorResponse(
-            description,
-            String.valueOf(object.getStatus().value()),
-            object.getClass().getSimpleName(),
-            object.getMessage(),
-            Arrays.stream(object.getStackTrace()).map(StackTraceElement::toString).toList()
+                description,
+                String.valueOf(object.getStatus().value()),
+                object.getClass().getSimpleName(),
+                object.getMessage(),
+                Arrays.stream(object.getStackTrace()).map(StackTraceElement::toString).toList()
         );
     }
 }

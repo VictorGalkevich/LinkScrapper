@@ -2,11 +2,7 @@ package edu.java.scrapper.handler;
 
 import edu.java.dto.response.ApiErrorResponse;
 import edu.java.scrapper.configuration.ExceptionConfig;
-import edu.java.scrapper.exception.ChatAlreadyRegisteredException;
-import edu.java.scrapper.exception.ChatIsNotRegisteredException;
-import edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
-import edu.java.scrapper.exception.LinkIsNotTrackedException;
-import edu.java.scrapper.exception.ScrapperException;
+import edu.java.scrapper.exception.*;
 import edu.java.scrapper.mapper.ApiErrorMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,6 +39,6 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
 
     private ResponseEntity<ApiErrorResponse> build(HttpStatus status, ScrapperException e, String description) {
         return ResponseEntity.status(status)
-            .body(mapper.map(e, description));
+                .body(mapper.map(e, description));
     }
 }

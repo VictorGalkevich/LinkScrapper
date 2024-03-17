@@ -23,8 +23,8 @@ public class UpdateService {
             String description = update.description();
             URI url = update.url();
             String message = config.updateMessage().formatted(
-                url.toString(),
-                description
+                    url.toString(),
+                    description
             );
             SendMessage notification = new SendMessage(chat, message);
             bot.execute(notification.parseMode(formatter.parseMode()));

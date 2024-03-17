@@ -4,11 +4,13 @@ import edu.java.bot.command.UntrackCommand;
 import edu.java.bot.exception.ApiResponseException;
 import edu.java.dto.response.ApiErrorResponse;
 import edu.java.dto.response.LinkResponse;
-import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UntrackMessageProcessorTest extends ProcessorTest {
@@ -18,7 +20,7 @@ public class UntrackMessageProcessorTest extends ProcessorTest {
         super.init();
         command = new UntrackCommand(config);
         processor = new UntrackMessageProcessor(
-            scrapperClient);
+                scrapperClient);
     }
 
     @Test
@@ -45,7 +47,7 @@ public class UntrackMessageProcessorTest extends ProcessorTest {
         ApiErrorResponse mock = Mockito.mock(ApiErrorResponse.class);
         Mockito.doReturn("Link is not being tracked").when(mock).description();
         Mockito.doReturn(Mono.error(new ApiResponseException(mock)))
-            .when(scrapperClient).remove(Mockito.any(), Mockito.any());
+                .when(scrapperClient).remove(Mockito.any(), Mockito.any());
 
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
@@ -59,7 +61,7 @@ public class UntrackMessageProcessorTest extends ProcessorTest {
         URI uri = Mockito.spy(URI.create(MOCKED_LINK));
 
         Mockito.doReturn(Mono.just(ResponseEntity.ok().body(new LinkResponse(MOCKED_LINK_ID, uri))))
-            .when(scrapperClient).remove(Mockito.any(), Mockito.any());
+                .when(scrapperClient).remove(Mockito.any(), Mockito.any());
 
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);

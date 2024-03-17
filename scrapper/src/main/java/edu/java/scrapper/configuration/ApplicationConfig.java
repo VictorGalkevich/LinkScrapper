@@ -8,9 +8,14 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @ConfigurationProperties(prefix = "app")
 public record ApplicationConfig(
-    @NotNull
-    Scheduler scheduler
+        @NotNull
+        Scheduler scheduler
 ) {
-    public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
+    public record Scheduler(
+            boolean enable,
+            @NotNull Duration interval,
+            @NotNull Duration forceCheckDelay,
+            @NotNull Duration linkCheckDelay
+    ) {
     }
 }

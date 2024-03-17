@@ -11,9 +11,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableConfigurationProperties({
-    ApplicationConfig.class,
-    LinkConfig.class,
-    ExceptionConfig.class
+        ApplicationConfig.class,
+        LinkConfig.class,
+        ExceptionConfig.class
 })
 public class ScrapperApplication {
     public static void main(String[] args) {

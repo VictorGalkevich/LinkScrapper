@@ -10,8 +10,8 @@ public class StackOverflowClient extends Client {
 
     public Mono<StackOverflowResponseDto> getQuestionInfo(Long id) {
         return client().get()
-            .uri("/questions/" + id + "?site=stackoverflow")
-            .retrieve()
-            .bodyToMono(StackOverflowResponseDto.class);
+                .uri("/questions/" + id + "?site=stackoverflow")
+                .retrieve()
+                .bodyToMono(StackOverflowResponseDto.class);
     }
 }

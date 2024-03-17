@@ -1,11 +1,11 @@
 package edu.java.bot.util;
 
-import java.net.URI;
 import org.junit.jupiter.api.Test;
+
+import java.net.URI;
+
 import static edu.java.bot.util.LinkUtil.parse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkUtilTest {
 

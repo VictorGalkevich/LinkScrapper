@@ -25,12 +25,12 @@ public class ListMessageProcessor extends UserMessageProcessor {
         if (command instanceof ListCommand) {
             Long id = update.id();
             String message = client.getAllLinks(id)
-                .map(resp -> createMessage(resp.getBody().links()))
-                .onErrorResume(
-                    ApiResponseException.class,
-                    err -> Mono.just(err.getResponse().description())
-                )
-                .block();
+                    .map(resp -> createMessage(resp.getBody().links()))
+                    .onErrorResume(
+                            ApiResponseException.class,
+                            err -> Mono.just(err.getResponse().description())
+                    )
+                    .block();
             return new SendMessage(id, message).parseMode(formatter.parseMode());
         } else {
             return null;
@@ -43,9 +43,9 @@ public class ListMessageProcessor extends UserMessageProcessor {
             message = new StringBuilder("Tracked links: \n");
             int cnt = 1;
             List<String> links = responses.stream()
-                .map(LinkResponse::url)
-                .map(String::valueOf)
-                .toList();
+                    .map(LinkResponse::url)
+                    .map(String::valueOf)
+                    .toList();
             for (String link : links) {
                 message.append(list.formatted(cnt++, link));
             }

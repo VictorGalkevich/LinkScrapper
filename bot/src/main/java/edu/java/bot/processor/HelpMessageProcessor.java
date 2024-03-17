@@ -24,7 +24,7 @@ public class HelpMessageProcessor extends UserMessageProcessor {
                 message.append(help.formatted(cmd.command(), cmd.description()));
             }
             return new SendMessage(update.id(), message.toString())
-                .parseMode(formatter.parseMode());
+                    .parseMode(formatter.parseMode());
         } else {
             return null;
         }

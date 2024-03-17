@@ -14,12 +14,12 @@ public class RestControllerExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiErrorResponse> handle(HttpMessageNotReadableException e) {
         return badRequest()
-            .body(new ApiErrorResponse(
-                "Invalid request parameters",
-                String.valueOf(BAD_REQUEST.value()),
-                e.getClass().getSimpleName(),
-                e.getMessage(),
-                Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).toList()
-            ));
+                .body(new ApiErrorResponse(
+                        "Invalid request parameters",
+                        String.valueOf(BAD_REQUEST.value()),
+                        e.getClass().getSimpleName(),
+                        e.getMessage(),
+                        Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).toList()
+                ));
     }
 }

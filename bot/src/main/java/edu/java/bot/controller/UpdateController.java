@@ -19,8 +19,8 @@ public class UpdateController {
     @PostMapping
     @Operation(summary = "Send updates")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
-        @ApiResponse(responseCode = "200", description = "Updates proceeded")})
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+            @ApiResponse(responseCode = "200", description = "Updates proceeded")})
     public void proceedUpdates(LinkUpdate update) {
         updateService.proceedUpdates(update);
     }

@@ -14,13 +14,13 @@ public class BotClient extends Client {
 
     public Mono<ResponseEntity<Void>> sendUpdate(LinkUpdate upd) {
         return client().post()
-            .uri("/updates")
-            .bodyValue(upd)
-            .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
-            )
-            .toBodilessEntity();
+                .uri("/updates")
+                .bodyValue(upd)
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
+                )
+                .toBodilessEntity();
     }
 }

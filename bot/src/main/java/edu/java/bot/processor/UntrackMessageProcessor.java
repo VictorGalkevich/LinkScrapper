@@ -28,12 +28,12 @@ public class UntrackMessageProcessor extends UserLinkMessageProcessor {
                 return new SendMessage(id, getMessage(e, command));
             }
             String message = client.remove(id, new RemoveLinkRequest(link))
-                .map(resp -> "Link was removed from tracking list!")
-                .onErrorResume(
-                    ApiResponseException.class,
-                    err -> Mono.just(err.getResponse().description())
-                )
-                .block();
+                    .map(resp -> "Link was removed from tracking list!")
+                    .onErrorResume(
+                            ApiResponseException.class,
+                            err -> Mono.just(err.getResponse().description())
+                    )
+                    .block();
             return new SendMessage(id, message);
         } else {
             return null;

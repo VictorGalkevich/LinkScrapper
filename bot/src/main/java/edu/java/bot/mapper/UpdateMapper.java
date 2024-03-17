@@ -14,7 +14,7 @@ public class UpdateMapper implements Mapper<Update, BotUpdate> {
 
     public List<BotUpdate> mapToList(List<Update> from) {
         return from.stream()
-            .map(this::map)
-            .toList();
+                .map(this::map)
+                .toList();
     }
 }
