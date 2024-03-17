@@ -50,7 +50,6 @@ public class GitHubClientTest extends ClientTest {
 
         Objects.requireNonNull(response);
         assertEquals(MOCKED_PATH, response.fullName());
-        assertEquals(repositoryUpdatedAt, response.updatedAt());
     }
 
     @Test

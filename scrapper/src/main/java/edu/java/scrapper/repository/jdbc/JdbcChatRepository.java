@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
-import static edu.java.scrapper.repository.jdbc.SqlQueries.*;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_CHAT;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.DELETE_CHAT;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_RELATED_CHATS;
 
 @Repository
 @RequiredArgsConstructor

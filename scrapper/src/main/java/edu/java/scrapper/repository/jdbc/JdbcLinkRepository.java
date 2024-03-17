@@ -12,7 +12,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
-import static edu.java.scrapper.repository.jdbc.SqlQueries.*;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_LINK;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.CONNECT_LINK_TO_CHAT;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.DELETE_LINK;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_ALL_BY_DELAY;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_CONNECTED_LINKS;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_LINK;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.REMOVE_LINK_FROM_CHAT;
 
 @Repository
 @RequiredArgsConstructor
