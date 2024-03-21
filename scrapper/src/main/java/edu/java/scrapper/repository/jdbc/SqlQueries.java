@@ -38,4 +38,14 @@ public abstract class SqlQueries {
             WHERE last_updated_at <?
             """;
 
+    public static final String FIND_LINK_BY_ID = """
+            SELECT * FROM links
+            WHERE id=?
+            """;
+
+    public static final String FIND_CHAT_BY_ID = """
+            SELECT * FROM chats
+            WHERE id=?
+            """;
+
 }

@@ -25,7 +25,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public ListLinksResponse findAllById(Long id) {
-        Collection<Link> links = linkRepository.findByCompanyId(id);
+        Collection<Link> links = linkRepository.findByChatId(id);
         return new ListLinksResponse(
                 links.stream()
                         .map(link -> new LinkResponse(link.getId(), URI.create(link.getUri())))
