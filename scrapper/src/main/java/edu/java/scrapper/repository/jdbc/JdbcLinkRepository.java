@@ -2,18 +2,16 @@ package edu.java.scrapper.repository.jdbc;
 
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.repository.ScrapperRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
-
 import java.net.URI;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Optional;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.CONNECT_LINK_TO_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.DELETE_LINK;

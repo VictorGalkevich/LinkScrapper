@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.DELETE_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_CHAT_BY_ID;
-import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_LINK_BY_ID;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_RELATED_CHATS;
 
 @Repository
