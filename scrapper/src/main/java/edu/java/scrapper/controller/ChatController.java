@@ -14,17 +14,17 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/tg-chat")
 @RequiredArgsConstructor
 public class ChatController {
-    private final ChatService chatService;
+    private final ChatService jooqChatService;
 
     @PostMapping("/{id}")
     public ResponseEntity<Void> register(@PathVariable Long id) {
-        chatService.registerChat(id);
+        jooqChatService.registerChat(id);
         return ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        chatService.delete(id);
+        jooqChatService.delete(id);
         return ok().build();
     }
 }

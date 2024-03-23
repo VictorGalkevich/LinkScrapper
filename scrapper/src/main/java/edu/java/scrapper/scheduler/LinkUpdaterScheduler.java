@@ -20,13 +20,13 @@ import org.springframework.stereotype.Component;
 public class LinkUpdaterScheduler {
     private final ApplicationConfig config;
     private final BotClient botClient;
-    private final LinkService linkService;
-    private final ChatService chatService;
+    private final LinkService jooqLinkService;
+    private final ChatService jooqChatService;
     private final List<Processor> processors;
 
     @Scheduled(fixedDelayString = "PT${app.scheduler.interval}")
     public void update() {
-        linkService.findAllWithDelay(config.scheduler().linkCheckDelay()).forEach(link -> {
+        jooqLinkService.findAllWithDelay(config.scheduler().linkCheckDelay()).forEach(link -> {
             processors.forEach(proc -> {
                 if (proc.supports(link)) {
                     proc.process(link)
@@ -35,7 +35,7 @@ public class LinkUpdaterScheduler {
                                     link.getId(),
                                     URI.create(link.getUri()),
                                     upd,
-                                    chatService.findAllChatsByLinkId(link.getId())
+                                    jooqChatService.findAllChatsByLinkId(link.getId())
                             ))
                             .subscribe(botClient::sendUpdate);
                 }

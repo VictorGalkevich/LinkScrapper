@@ -1,7 +1,7 @@
 package edu.java.scrapper.repository.jdbc;
 
 import edu.java.scrapper.entity.Link;
-import edu.java.scrapper.repository.ScrapperRepository;
+import edu.java.scrapper.repository.EntityRepository;
 import java.net.URI;
 import java.sql.Timestamp;
 import java.time.Duration;
@@ -20,10 +20,11 @@ import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_CONNECTED_LINKS;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_LINK_BY_ID;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.REMOVE_LINK_FROM_CHAT;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_LINK;
 
 @Repository
 @RequiredArgsConstructor
-public class JdbcLinkRepository implements ScrapperRepository<Link, Long> {
+public class JdbcLinkRepository implements EntityRepository<Link, Long> {
     private final JdbcClient jdbcClient;
     private final BeanPropertyRowMapper<Link> mapper = new BeanPropertyRowMapper<>(Link.class);
 
@@ -94,7 +95,7 @@ public class JdbcLinkRepository implements ScrapperRepository<Link, Long> {
     }
 
     public void update(Link link) {
-        jdbcClient.sql(CONNECT_LINK_TO_CHAT)
+        jdbcClient.sql(UPDATE_LINK)
             .params(
                 link.getLastUpdatedAt(),
                 link.getId()
