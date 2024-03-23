@@ -5,9 +5,9 @@ import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.entity.StackOverflowLink;
 import edu.java.scrapper.repository.jooq.JooqStackOverflowRepository;
 import edu.java.scrapper.service.StackOverflowService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
 
 @TransactionalService
 @RequiredArgsConstructor

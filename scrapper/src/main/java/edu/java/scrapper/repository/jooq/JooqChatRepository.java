@@ -2,11 +2,11 @@ package edu.java.scrapper.repository.jooq;
 
 import edu.java.scrapper.entity.Chat;
 import edu.java.scrapper.repository.EntityRepository;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import java.util.List;
-import java.util.Optional;
 import static edu.java.scrapper.domain.jooq.Tables.ASSIGNMENT;
 import static edu.java.scrapper.domain.jooq.Tables.CHATS;
 

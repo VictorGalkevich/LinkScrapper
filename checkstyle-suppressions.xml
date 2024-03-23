@@ -5,5 +5,5 @@
         "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-    <suppress files="[/\\]ru.tinkoff.edu.java.scrapper.domain.jooq[/\\]" checks=".*"/>
+    <suppress files="[/\\]edu.java.scrapper.domain.jooq[/\\]" checks=".*"/>
 </suppressions>

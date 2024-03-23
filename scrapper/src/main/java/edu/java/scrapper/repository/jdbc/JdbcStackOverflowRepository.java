@@ -1,22 +1,24 @@
 package edu.java.scrapper.repository.jdbc;
 
-import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.entity.StackOverflowLink;
 import edu.java.scrapper.repository.LinkUpdateRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
-import static edu.java.scrapper.repository.jdbc.SqlQueries.*;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_SOF_LINK;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_SOF_LINK;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_SOF_LINK;
 
 @Repository
 @RequiredArgsConstructor
 public class JdbcStackOverflowRepository implements LinkUpdateRepository<StackOverflowLink> {
     private final JdbcClient jdbcClient;
-    private final BeanPropertyRowMapper<StackOverflowLink> mapper = new BeanPropertyRowMapper<>(StackOverflowLink.class);
+    private final BeanPropertyRowMapper<StackOverflowLink> mapper =
+        new BeanPropertyRowMapper<>(StackOverflowLink.class);
+
     @Override
     public Optional<StackOverflowLink> findLink(Link link) {
         try {

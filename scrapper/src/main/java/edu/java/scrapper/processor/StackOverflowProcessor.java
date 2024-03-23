@@ -1,7 +1,6 @@
 package edu.java.scrapper.processor;
 
 import edu.java.scrapper.client.StackOverflowClient;
-import edu.java.scrapper.dto.StackOverflowResponseDto;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.entity.StackOverflowLink;
 import edu.java.scrapper.service.LinkService;
