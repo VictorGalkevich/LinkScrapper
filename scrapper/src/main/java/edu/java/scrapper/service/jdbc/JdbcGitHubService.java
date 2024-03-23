@@ -5,9 +5,9 @@ import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.repository.jdbc.JdbcGitHubRepository;
 import edu.java.scrapper.service.GitHubService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
 
 @TransactionalService
 @RequiredArgsConstructor

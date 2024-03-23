@@ -6,12 +6,12 @@ import edu.java.scrapper.exception.ChatAlreadyRegisteredException;
 import edu.java.scrapper.exception.ChatIsNotRegisteredException;
 import edu.java.scrapper.repository.jooq.JooqChatRepository;
 import edu.java.scrapper.service.ChatService;
+import java.time.OffsetDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @TransactionalService
 @RequiredArgsConstructor

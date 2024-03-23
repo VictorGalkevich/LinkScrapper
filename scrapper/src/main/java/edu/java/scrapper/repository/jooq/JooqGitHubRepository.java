@@ -3,12 +3,11 @@ package edu.java.scrapper.repository.jooq;
 import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.repository.LinkUpdateRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
-import static edu.java.scrapper.domain.jooq.tables.GithubLinks.*;
+import static edu.java.scrapper.domain.jooq.Tables.GITHUB_LINKS;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,7 +24,10 @@ public class JooqGitHubRepository implements LinkUpdateRepository<GitHubLink> {
 
     @Override
     public GitHubLink save(GitHubLink link) {
-        return dslContext.insertInto(GITHUB_LINKS, GITHUB_LINKS.ID, GITHUB_LINKS.DEFAULT_BRANCH, GITHUB_LINKS.FORKS_COUNT)
+        return dslContext.insertInto(GITHUB_LINKS,
+                GITHUB_LINKS.ID,
+                GITHUB_LINKS.DEFAULT_BRANCH,
+                GITHUB_LINKS.FORKS_COUNT)
             .values(link.getId(), link.getDefaultBranch(), link.getForksCount())
             .returning(GITHUB_LINKS.fields())
             .fetchOneInto(GitHubLink.class);

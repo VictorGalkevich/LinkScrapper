@@ -10,18 +10,19 @@ import edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
 import edu.java.scrapper.exception.LinkIsNotTrackedException;
 import edu.java.scrapper.repository.jooq.JooqLinkRepository;
 import edu.java.scrapper.service.LinkService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.transaction.annotation.Transactional;
 import java.net.URI;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.transaction.annotation.Transactional;
 
 @TransactionalService
 @RequiredArgsConstructor
 public class JooqLinkService implements LinkService {
     private final JooqLinkRepository linkRepository;
+
     @Override
     public ListLinksResponse findAllById(Long id) {
         Collection<Link> links = linkRepository.findByChatId(id);

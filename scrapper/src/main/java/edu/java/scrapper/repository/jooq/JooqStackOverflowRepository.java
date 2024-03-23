@@ -3,10 +3,10 @@ package edu.java.scrapper.repository.jooq;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.entity.StackOverflowLink;
 import edu.java.scrapper.repository.LinkUpdateRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
-import java.util.Optional;
 import static edu.java.scrapper.domain.jooq.Tables.STACKOVERFLOW_LINKS;
 
 @Repository

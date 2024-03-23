@@ -2,14 +2,14 @@ package edu.java.scrapper.repository.jooq;
 
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.repository.EntityRepository;
-import lombok.RequiredArgsConstructor;
-import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import java.net.URI;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.jooq.DSLContext;
+import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.domain.jooq.Tables.ASSIGNMENT;
 import static edu.java.scrapper.domain.jooq.Tables.LINKS;
 
