@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_GITHUB_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_GITHUB_LINK;
+import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_GITHUB_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_LINK;
 
 @Repository
@@ -43,7 +44,7 @@ public class JdbcGitHubRepository implements LinkUpdateRepository<GitHubLink> {
 
     @Override
     public void update(GitHubLink link) {
-        jdbcClient.sql(UPDATE_LINK)
+        jdbcClient.sql(UPDATE_GITHUB_LINK)
             .params(
                 link.getDefaultBranch(),
                 link.getForksCount(),

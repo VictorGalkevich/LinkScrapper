@@ -1,20 +1,19 @@
-package edu.java.scrapper.repository;
+package edu.java.scrapper.repository.jooq;
 
 import edu.java.scrapper.IntegrationTest;
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.Chat;
-import edu.java.scrapper.repository.jdbc.JdbcChatRepository;
-import java.time.OffsetDateTime;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.time.OffsetDateTime;
+import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JdbcChatRepositoryTest extends IntegrationTest {
+public class JooqChatRepositoryTest extends IntegrationTest {
     @Autowired
-    private JdbcChatRepository userRepository;
+    private JooqChatRepository jooqChatRepository;
     private static final Chat TEST_CHAT;
     private static final Long TEST_ID = 123L;
 
@@ -28,21 +27,21 @@ public class JdbcChatRepositoryTest extends IntegrationTest {
 
     @Test
     void testAddPositive() {
-        Chat save = userRepository.save(TEST_CHAT);
+        Chat save = jooqChatRepository.save(TEST_CHAT);
         assertEquals(TEST_CHAT.getId(), save.getId());
         assertEquals(TEST_CHAT.getLinks(), save.getLinks());
     }
 
     @Test
     void testFindByIdExistsPositive() {
-        userRepository.save(TEST_CHAT);
-        Optional<Chat> found = userRepository.findById(TEST_ID);
+        jooqChatRepository.save(TEST_CHAT);
+        Optional<Chat> found = jooqChatRepository.findById(TEST_ID);
         assertTrue(found.isPresent());
     }
 
     @Test
     void testFindByIdDoesNotExist() {
-        assertTrue(userRepository.findById(TEST_ID).isEmpty());
+        assertTrue(jooqChatRepository.findById(TEST_ID).isEmpty());
     }
 
 }
