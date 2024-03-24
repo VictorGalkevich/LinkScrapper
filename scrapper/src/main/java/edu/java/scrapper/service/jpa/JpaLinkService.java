@@ -12,13 +12,13 @@ import edu.java.scrapper.exception.LinkIsNotTrackedException;
 import edu.java.scrapper.repository.jpa.JpaChatRepository;
 import edu.java.scrapper.repository.jpa.JpaLinkRepository;
 import edu.java.scrapper.service.LinkService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import java.net.URI;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor

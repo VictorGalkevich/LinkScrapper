@@ -15,7 +15,6 @@ import edu.java.scrapper.service.jpa.JpaStackOverflowService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import static edu.java.scrapper.configuration.access.AccessType.JPA;
 
 @Configuration

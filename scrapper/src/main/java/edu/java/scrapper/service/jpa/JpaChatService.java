@@ -5,10 +5,10 @@ import edu.java.scrapper.exception.ChatAlreadyRegisteredException;
 import edu.java.scrapper.exception.ChatIsNotRegisteredException;
 import edu.java.scrapper.repository.jpa.JpaChatRepository;
 import edu.java.scrapper.service.ChatService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
