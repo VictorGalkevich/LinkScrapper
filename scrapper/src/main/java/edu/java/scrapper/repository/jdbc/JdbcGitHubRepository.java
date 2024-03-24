@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_GITHUB_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_GITHUB_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_GITHUB_LINK;
-import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_LINK;
 
 @RequiredArgsConstructor
 public class JdbcGitHubRepository implements LinkUpdateRepository<GitHubLink> {
