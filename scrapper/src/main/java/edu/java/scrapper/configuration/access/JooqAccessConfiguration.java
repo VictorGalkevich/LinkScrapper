@@ -17,12 +17,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static edu.java.scrapper.configuration.access.AccessType.JOOQ;
+
 @Configuration
 @ConditionalOnProperty(
     prefix = "app",
     name = "database-access-type",
-    havingValue = "jooq"
-)public class JooqAccessConfiguration {
+    havingValue = JOOQ
+)
+public class JooqAccessConfiguration {
     @Bean
     public JooqLinkRepository jooqLinkRepository(DSLContext dslContext) {
         return new JooqLinkRepository(dslContext);

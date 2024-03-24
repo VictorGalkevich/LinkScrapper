@@ -17,11 +17,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.simple.JdbcClient;
 
+import static edu.java.scrapper.configuration.access.AccessType.JDBC;
+
 @Configuration
 @ConditionalOnProperty(
     prefix = "app",
     name = "database-access-type",
-    havingValue = "jdbc"
+    havingValue = JDBC
                        )
 public class JdbcAccessConfiguration {
     @Bean

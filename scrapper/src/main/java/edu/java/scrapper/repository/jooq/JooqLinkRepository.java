@@ -51,6 +51,8 @@ public class JooqLinkRepository implements EntityRepository<Link, Long> {
     public Collection<Link> findByChatId(Long id) {
         return dslContext.select(LINKS.fields())
             .from(LINKS)
+            .innerJoin(ASSIGNMENT).on(LINKS.ID.eq(ASSIGNMENT.LINK_ID))
+            .where(ASSIGNMENT.CHAT_ID.eq(id))
             .fetchInto(Link.class);
     }
 
