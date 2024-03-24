@@ -7,12 +7,10 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_SOF_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_SOF_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_SOF_LINK;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcStackOverflowRepository implements LinkUpdateRepository<StackOverflowLink> {
     private final JdbcClient jdbcClient;

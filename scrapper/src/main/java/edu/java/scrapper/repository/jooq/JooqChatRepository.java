@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.domain.jooq.Tables.ASSIGNMENT;
 import static edu.java.scrapper.domain.jooq.Tables.CHATS;
 
-@Repository
 @RequiredArgsConstructor
 public class JooqChatRepository implements EntityRepository<Chat, Long> {
     private final DSLContext dslContext;

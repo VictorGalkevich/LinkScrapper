@@ -1,32 +1,32 @@
-package edu.java.scrapper.service.jooq;
+package edu.java.scrapper.service.jpa;
 
 import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
-import edu.java.scrapper.repository.jooq.JooqGitHubRepository;
+import edu.java.scrapper.repository.jpa.JpaGitHubRepository;
 import edu.java.scrapper.service.GitHubService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class JooqGitHubService implements GitHubService {
-    private final JooqGitHubRepository gitHubRepository;
+public class JpaGitHubService implements GitHubService {
+    private final JpaGitHubRepository repository;
 
     @Override
     public Optional<GitHubLink> findLink(Link link) {
-        return gitHubRepository.findLink(link);
+        return repository.findById(link.getId());
     }
 
     @Override
     @Transactional
     public GitHubLink save(GitHubLink link) {
-        return gitHubRepository.save(link);
+        return repository.save(link);
     }
 
     @Override
     @Transactional
     public void updateLink(GitHubLink link) {
-        gitHubRepository.update(link);
+        repository.saveAndFlush(link);
     }
 }

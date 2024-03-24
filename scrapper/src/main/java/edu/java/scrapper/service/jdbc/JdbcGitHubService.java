@@ -1,6 +1,5 @@
 package edu.java.scrapper.service.jdbc;
 
-import edu.java.scrapper.annotation.TransactionalService;
 import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.repository.jdbc.JdbcGitHubRepository;
@@ -9,7 +8,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-@TransactionalService
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class JdbcGitHubService implements GitHubService {
     private final JdbcGitHubRepository gitHubRepository;

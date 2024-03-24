@@ -1,32 +1,29 @@
-package edu.java.scrapper.service.jooq;
+package edu.java.scrapper.service.jpa;
 
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.entity.StackOverflowLink;
-import edu.java.scrapper.repository.jooq.JooqStackOverflowRepository;
+import edu.java.scrapper.repository.jpa.JpaStackOverflowRepository;
 import edu.java.scrapper.service.StackOverflowService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class JooqStackOverflowService implements StackOverflowService {
-    private final JooqStackOverflowRepository stackOverflowRepository;
-
+public class JpaStackOverflowService implements StackOverflowService {
+    private final JpaStackOverflowRepository repository;
     @Override
     public Optional<StackOverflowLink> findLink(Link link) {
-        return stackOverflowRepository.findLink(link);
+        return repository.findById(link.getId());
     }
 
     @Override
-    @Transactional
     public StackOverflowLink save(StackOverflowLink link) {
-        return stackOverflowRepository.save(link);
+        return repository.save(link);
     }
 
     @Override
-    @Transactional
     public void updateLink(StackOverflowLink link) {
-        stackOverflowRepository.update(link);
+        repository.saveAndFlush(link);
     }
 }

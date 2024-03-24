@@ -4,7 +4,6 @@ import edu.java.dto.request.AddLinkRequest;
 import edu.java.dto.request.RemoveLinkRequest;
 import edu.java.dto.response.LinkResponse;
 import edu.java.dto.response.ListLinksResponse;
-import edu.java.scrapper.annotation.TransactionalService;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
 import edu.java.scrapper.exception.LinkIsNotTrackedException;
@@ -18,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 
-@TransactionalService
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class JdbcLinkService implements LinkService {
     private final JdbcLinkRepository linkRepository;

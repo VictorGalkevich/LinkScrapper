@@ -9,11 +9,9 @@ import java.util.Collection;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.domain.jooq.Tables.ASSIGNMENT;
 import static edu.java.scrapper.domain.jooq.Tables.LINKS;
 
-@Repository
 @RequiredArgsConstructor
 public class JooqLinkRepository implements EntityRepository<Link, Long> {
     private final DSLContext dslContext;

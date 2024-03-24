@@ -11,7 +11,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.CONNECT_LINK_TO_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.DELETE_LINK;
@@ -22,7 +21,6 @@ import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_LINK_BY_ID;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.REMOVE_LINK_FROM_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_LINK;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcLinkRepository implements EntityRepository<Link, Long> {
     private final JdbcClient jdbcClient;
