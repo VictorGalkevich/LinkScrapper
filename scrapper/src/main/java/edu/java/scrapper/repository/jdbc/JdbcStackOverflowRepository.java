@@ -42,7 +42,8 @@ public class JdbcStackOverflowRepository implements LinkUpdateRepository<StackOv
     @Override
     public void update(StackOverflowLink link) {
         jdbcClient.sql(UPDATE_SOF_LINK)
-            .params(link.getAnswerCount(),
+            .params(
+                link.getAnswerCount(),
                 link.getScore(),
                 link.getId())
             .update();
