@@ -11,6 +11,10 @@ app:
   database-access-type: jdbc
 
 spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: scrapper
   devtools:

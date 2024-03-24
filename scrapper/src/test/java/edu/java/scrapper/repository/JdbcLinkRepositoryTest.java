@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +29,11 @@ public class JdbcLinkRepositoryTest extends IntegrationTest {
             .host("github.com")
             .lastUpdatedAt(OffsetDateTime.now())
             .build();
+    }
+
+    @DynamicPropertySource
+    public static void setJdbcAccessType(DynamicPropertyRegistry registry) {
+        registry.add("app.database-access-type", () -> "jdbc");
     }
 
     @Test
