@@ -58,8 +58,13 @@ public class JdbcLinkService implements LinkService {
     public LinkResponse delete(Long id, RemoveLinkRequest req) {
         URI url = req.link();
         Optional<Link> link = linkRepository.findByUrl(url);
+        Collection<Link> links = linkRepository.findByChatId(id);
 
-        if (link.isPresent()) {
+        boolean isSubscribed = links.stream()
+            .map(Link::getUri)
+            .anyMatch(x -> x.equals(req.link().toString()));
+
+        if (link.isPresent() && isSubscribed) {
             linkRepository.removeLink(id, link.get().getId());
 
             return new LinkResponse(link.get().getId(), url);
