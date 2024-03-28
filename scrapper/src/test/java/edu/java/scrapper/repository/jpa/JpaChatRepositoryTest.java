@@ -1,9 +1,8 @@
-package edu.java.scrapper.repository.jooq;
+package edu.java.scrapper.repository.jpa;
 
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.Chat;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JooqChatRepositoryTest extends JooqRepositoryTest {
+public class JpaChatRepositoryTest extends JpaRepositoryTest {
     @Autowired
-    private JooqChatRepository jooqChatRepository;
+    private JpaChatRepository jooqChatRepository;
     private static final Chat TEST_CHAT;
     private static final Long TEST_ID = 123L;
 
     static {
         TEST_CHAT = Chat.builder()
             .id(123L)
-            .links(new ArrayList<>())
+            .links(null)
             .createdAt(OffsetDateTime.now())
             .build();
     }

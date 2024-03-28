@@ -1,11 +1,8 @@
 package edu.java.scrapper.repository.jooq;
 
-import edu.java.scrapper.IntegrationTest;
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.Link;
 import edu.java.scrapper.entity.StackOverflowLink;
-import edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
-import edu.java.scrapper.repository.jdbc.JdbcStackOverflowRepository;
 import java.net.URI;
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
@@ -17,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JooqStackOverflowRepositoryTest extends IntegrationTest {
+public class JooqStackOverflowRepositoryTest extends JooqRepositoryTest {
     @Autowired
     private JooqStackOverflowRepository stackOverflowLinkRepository;
     @Autowired

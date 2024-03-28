@@ -1,6 +1,5 @@
 package edu.java.scrapper.repository.jooq;
 
-import edu.java.scrapper.IntegrationTest;
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JooqGitHubRepositoryTest extends IntegrationTest {
+public class JooqGitHubRepositoryTest extends JooqRepositoryTest {
     @Autowired
     private JooqGitHubRepository gitHubLinkRepository;
     @Autowired

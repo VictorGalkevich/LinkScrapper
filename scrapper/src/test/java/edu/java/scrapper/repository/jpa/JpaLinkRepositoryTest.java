@@ -1,4 +1,4 @@
-package edu.java.scrapper.repository.jooq;
+package edu.java.scrapper.repository.jpa;
 
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.Link;
@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JooqLinkRepositoryTest extends JooqRepositoryTest {
+public class JpaLinkRepositoryTest extends JpaRepositoryTest {
     @Autowired
-    private JooqLinkRepository linkRepository;
+    private JpaLinkRepository linkRepository;
     private static final Link TEST_LINK;
 
     static {
@@ -32,8 +32,8 @@ public class JooqLinkRepositoryTest extends JooqRepositoryTest {
     @Test
     void testDeletePositive() {
         Link save = linkRepository.save(TEST_LINK);
-        Link delete = linkRepository.delete(save);
-        assertEquals(TEST_LINK.getUri(), delete.getUri());
+        linkRepository.delete(save);
+        assertTrue(linkRepository.findByUri("https://github.com").isEmpty());
     }
 
     @Test

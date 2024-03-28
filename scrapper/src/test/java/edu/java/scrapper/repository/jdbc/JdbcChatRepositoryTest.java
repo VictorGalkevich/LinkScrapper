@@ -1,21 +1,17 @@
 package edu.java.scrapper.repository.jdbc;
 
-import edu.java.scrapper.IntegrationTest;
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.Chat;
-import edu.java.scrapper.repository.jdbc.JdbcChatRepository;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JdbcChatRepositoryTest extends IntegrationTest {
+public class JdbcChatRepositoryTest extends JdbcRepositoryTest {
     @Autowired
     private JdbcChatRepository userRepository;
     private static final Chat TEST_CHAT;
@@ -27,11 +23,6 @@ public class JdbcChatRepositoryTest extends IntegrationTest {
             .links(new ArrayList<>())
             .createdAt(OffsetDateTime.now())
             .build();
-    }
-
-    @DynamicPropertySource
-    public static void setJdbcAccessType(DynamicPropertyRegistry registry) {
-        registry.add("app.database-access-type", () -> "jdbc");
     }
 
     @Test
