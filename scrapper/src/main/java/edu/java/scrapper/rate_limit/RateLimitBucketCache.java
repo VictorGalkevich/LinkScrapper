@@ -5,10 +5,10 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
 import jakarta.annotation.PostConstruct;
+import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-import java.time.Duration;
 
 @Component
 @RequiredArgsConstructor

@@ -8,5 +8,6 @@ public abstract class Backoff {
     protected Backoff(Duration constant) {
         this.constant = constant;
     }
+
     public abstract Duration calculateWaitTime(int attempt);
 }

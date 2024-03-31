@@ -1,6 +1,5 @@
 package edu.java.scrapper.configuration;
 
-import edu.java.backoff.properties.RetryProperties;
 import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,7 +10,9 @@ import org.springframework.validation.annotation.Validated;
 public record ApplicationConfig(
     @NotNull
     Scheduler scheduler,
-    RateLimit rateLimit
+    RateLimit rateLimit,
+    @NotNull
+    String gitHubToken
 
 ) {
     public record Scheduler(

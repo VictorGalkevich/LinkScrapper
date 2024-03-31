@@ -15,6 +15,7 @@ app:
     refill-time-seconds: 3600
     capacity: 100
   database-access-type: jdbc
+  git-hub-token: ${GIT_HUB_TOKEN}
 
 spring:
   jpa:

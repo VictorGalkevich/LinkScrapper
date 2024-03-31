@@ -12,10 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class ClientConfig {
     private final LinkConfig config;
+    private final ApplicationConfig applicationConfig;
 
     @Bean
     public GitHubClient github(RetryFilter gitHubFilter) {
-        return new GitHubClient(config.getGithub(), gitHubFilter);
+        return new GitHubClient(config.getGithub(), gitHubFilter, applicationConfig.gitHubToken());
     }
 
     @Bean

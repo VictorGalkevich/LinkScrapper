@@ -1,6 +1,8 @@
 package edu.java.backoff.filter;
 
 import edu.java.backoff.type.Backoff;
+import java.time.Duration;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.ClientRequest;
@@ -8,14 +10,13 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.ExchangeFunction;
 import reactor.core.publisher.Mono;
-import java.time.Duration;
-import java.util.Set;
 
 @RequiredArgsConstructor
 public class RetryFilter implements ExchangeFilterFunction {
     private final Backoff backoff;
     private final Set<HttpStatus> httpStatuses;
     private final int attemptsThreshold;
+
     @Override
     public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
         return retry(request, next, 1);
