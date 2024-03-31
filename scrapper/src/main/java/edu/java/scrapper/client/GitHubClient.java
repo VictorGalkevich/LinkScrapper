@@ -1,12 +1,12 @@
 package edu.java.scrapper.client;
 
 import edu.java.backoff.filter.RetryFilter;
-import edu.java.scrapper.configuration.ApplicationConfig;
 import edu.java.scrapper.dto.GitHubResponseDto;
 import reactor.core.publisher.Mono;
 
 public class GitHubClient extends Client {
     private final String token;
+
     public GitHubClient(String baseUrl, RetryFilter filter, String token) {
         super(baseUrl, filter);
         this.token = token;
