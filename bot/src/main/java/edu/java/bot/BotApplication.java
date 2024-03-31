@@ -2,6 +2,7 @@ package edu.java.bot;
 
 import edu.java.bot.configuration.ApplicationConfig;
 import edu.java.bot.configuration.CommandConfig;
+import edu.java.bot.configuration.RetryPropertiesConfig;
 import edu.java.bot.configuration.ScrapperConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,9 +10,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties({
-        ApplicationConfig.class,
-        CommandConfig.class,
-        ScrapperConfig.class
+    ApplicationConfig.class,
+    CommandConfig.class,
+    ScrapperConfig.class,
+    RetryPropertiesConfig.class
 })
 @SuppressWarnings("")
 public class BotApplication {

@@ -1,11 +1,12 @@
 package edu.java.scrapper.client;
 
+import edu.java.backoff.filter.RetryFilter;
 import edu.java.scrapper.dto.GitHubResponseDto;
 import reactor.core.publisher.Mono;
 
 public class GitHubClient extends Client {
-    public GitHubClient(String baseUrl) {
-        super(baseUrl);
+    public GitHubClient(String baseUrl, RetryFilter filter) {
+        super(baseUrl, filter);
     }
 
     public Mono<GitHubResponseDto> getRepositoryInfo(String ownerAndRepo) {

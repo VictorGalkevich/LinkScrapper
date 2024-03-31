@@ -52,6 +52,7 @@
         <module>scrapper</module>
         <module>dto</module>
         <module>scrapper-jooq</module>
+        <module>backoff</module>
     </modules>
 
     <dependencyManagement>

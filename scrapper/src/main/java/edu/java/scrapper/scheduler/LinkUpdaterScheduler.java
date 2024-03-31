@@ -30,14 +30,15 @@ public class LinkUpdaterScheduler {
             processors.forEach(proc -> {
                 if (proc.supports(link)) {
                     proc.process(link)
-                            .filter(Objects::nonNull)
-                            .map(upd -> new LinkUpdate(
-                                    link.getId(),
-                                    URI.create(link.getUri()),
-                                    upd,
-                                    jooqChatService.findAllChatsByLinkId(link.getId())
-                            ))
-                            .subscribe(botClient::sendUpdate);
+                        .filter(Objects::nonNull)
+                        .map(upd -> new LinkUpdate(
+                            link.getId(),
+                            URI.create(link.getUri()),
+                            upd,
+                            jooqChatService.findAllChatsByLinkId(link.getId())
+                        ))
+                        .flatMap(botClient::sendUpdate)
+                        .subscribe();
                 }
             });
         });

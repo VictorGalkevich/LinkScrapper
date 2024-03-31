@@ -78,6 +78,11 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>edu.java</groupId>
+            <artifactId>backoff</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns-native-macos</artifactId>
             <classifier>osx-aarch_64</classifier>

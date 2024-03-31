@@ -1,5 +1,6 @@
 package edu.java.scrapper.configuration;
 
+import edu.java.backoff.filter.RetryFilter;
 import edu.java.scrapper.client.BotClient;
 import edu.java.scrapper.client.GitHubClient;
 import edu.java.scrapper.client.StackOverflowClient;
@@ -13,17 +14,17 @@ public class ClientConfig {
     private final LinkConfig config;
 
     @Bean
-    public GitHubClient github() {
-        return new GitHubClient(config.getGithub());
+    public GitHubClient github(RetryFilter gitHubFilter) {
+        return new GitHubClient(config.getGithub(), gitHubFilter);
     }
 
     @Bean
-    public StackOverflowClient stackoverflow() {
-        return new StackOverflowClient(config.getStackoverflow());
+    public StackOverflowClient stackoverflow(RetryFilter stackOverflowFilter) {
+        return new StackOverflowClient(config.getStackoverflow(), stackOverflowFilter);
     }
 
     @Bean
-    public BotClient bot() {
-        return new BotClient(config.getBot());
+    public BotClient bot(RetryFilter botFilter) {
+        return new BotClient(config.getBot(), botFilter);
     }
 }
