@@ -5,6 +5,7 @@ import edu.java.bot.formatter.Formatter;
 import edu.java.bot.tgbot.Bot;
 import edu.java.bot.tgbot.request.SendMessage;
 import edu.java.dto.request.LinkUpdate;
+import io.micrometer.core.instrument.Counter;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class UpdateService {
     private final Bot bot;
     private final Formatter formatter;
     private final ApplicationConfig config;
+    private final Counter processedMessagesCounter;
 
     public void proceedUpdates(LinkUpdate update) {
         List<Long> chats = update.tgChatIds();
@@ -29,5 +31,6 @@ public class UpdateService {
             SendMessage notification = new SendMessage(chat, message);
             bot.execute(notification.parseMode(formatter.parseMode()));
         }
+        processedMessagesCounter.increment();
     }
 }
