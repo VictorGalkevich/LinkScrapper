@@ -7,6 +7,10 @@ app:
       name: scrapper.updates
       partitions: 2
       replicas: 2
+  micrometer:
+    processed-messages-counter:
+      name: messages.processed
+      description: number of processed messages
 
 spring:
   application:
@@ -16,10 +20,6 @@ spring:
       enabled: false
   jackson:
     time-zone: UTC
-  micrometer:
-    processed-messages-counter:
-      name: messages.processed
-      description: number of processed messages
 
 server:
   port: 8090
