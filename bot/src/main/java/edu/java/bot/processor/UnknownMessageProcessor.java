@@ -13,8 +13,8 @@ public class UnknownMessageProcessor extends UserMessageProcessor {
     public SendMessage process(Command command, BotUpdate update) {
         if (command instanceof UnknownCommand) {
             return new SendMessage(
-                update.id(),
-                "Sorry, I can't proceed this type of message. \nAvailable commands: /help"
+                    update.id(),
+                    "Sorry, I can't proceed this type of message. \nAvailable commands: /help"
             );
         } else {
             return null;

@@ -43,6 +43,6 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
 
     private ResponseEntity<ApiErrorResponse> build(HttpStatus status, ScrapperException e, String description) {
         return ResponseEntity.status(status)
-            .body(mapper.map(e, description));
+                .body(mapper.map(e, description));
     }
 }

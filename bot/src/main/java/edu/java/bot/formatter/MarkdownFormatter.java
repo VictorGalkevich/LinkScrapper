@@ -22,9 +22,9 @@ public class MarkdownFormatter implements Formatter {
     @Override
     public String code(String msg, ProgrammingLanguage lang) {
         return """
-            ```%s
-            %s
-            ```
-            """.formatted(lang, msg);
+                ```%s
+                %s
+                ```
+                """.formatted(lang, msg);
     }
 }

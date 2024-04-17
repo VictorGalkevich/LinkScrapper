@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+
 import java.net.URI;
 import java.util.List;
 
@@ -33,21 +34,21 @@ public class BotClientTest extends ClientTest {
     @Test
     void testSendUpdatesPositive() {
         final LinkUpdate update = new LinkUpdate(
-            MOCKED_UPDATE_ID, MOCKED_URI,
-            DESCRIPTION, List.of(MOCKED_CHAT_ID));
+                MOCKED_UPDATE_ID, MOCKED_URI,
+                DESCRIPTION, List.of(MOCKED_CHAT_ID));
         WIRE_MOCK_SERVER.stubFor(WireMock.post(UPDATES)
-            .withRequestBody(WireMock.equalToJson("""
-                {
-                    "id": %d,
-                    "url": "%s",
-                      "description": "%s",
-                      "tgChatIds": [
-                        %d
-                      ]
-                }
-                """.formatted(MOCKED_UPDATE_ID, MOCKED_URI,
-                DESCRIPTION, MOCKED_CHAT_ID)))
-            .willReturn(WireMock.ok()));
+                .withRequestBody(WireMock.equalToJson("""
+                        {
+                            "id": %d,
+                            "url": "%s",
+                              "description": "%s",
+                              "tgChatIds": [
+                                %d
+                              ]
+                        }
+                        """.formatted(MOCKED_UPDATE_ID, MOCKED_URI,
+                        DESCRIPTION, MOCKED_CHAT_ID)))
+                .willReturn(WireMock.ok()));
         ResponseEntity<Void> resp = client.sendUpdate(update).block();
 
         Assertions.assertNotNull(resp);

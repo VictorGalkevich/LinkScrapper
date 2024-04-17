@@ -52,10 +52,10 @@ public class MyBot implements Bot {
     private SendMessage processUpdate(BotUpdate update) {
         Command cmd = retrieveCommand(update);
         return processors.stream()
-            .map(x -> x.process(cmd, update))
-            .filter(Objects::nonNull)
-            .findFirst()
-            .orElseThrow();
+                .map(x -> x.process(cmd, update))
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElseThrow();
     }
 
     private Command retrieveCommand(BotUpdate update) {
@@ -72,7 +72,7 @@ public class MyBot implements Bot {
 
     private SetMyCommands setUpMenuCommands() {
         return new SetMyCommands(commands.stream()
-            .map(Command::toApiCommand)
-            .toArray(BotCommand[]::new));
+                .map(Command::toApiCommand)
+                .toArray(BotCommand[]::new));
     }
 }

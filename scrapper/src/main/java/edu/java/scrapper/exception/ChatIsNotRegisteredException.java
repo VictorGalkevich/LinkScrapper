@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 public class ChatIsNotRegisteredException extends ScrapperException {
     public ChatIsNotRegisteredException(Long id) {
         super(
-            "Chat with id %d doesn't exist".formatted(id),
-            HttpStatus.NOT_FOUND
+                "Chat with id %d doesn't exist".formatted(id),
+                HttpStatus.NOT_FOUND
         );
     }
 }

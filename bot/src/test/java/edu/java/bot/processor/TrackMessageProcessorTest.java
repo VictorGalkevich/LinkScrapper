@@ -5,11 +5,13 @@ import edu.java.bot.exception.ApiResponseException;
 import edu.java.dto.request.AddLinkRequest;
 import edu.java.dto.response.ApiErrorResponse;
 import edu.java.dto.response.LinkResponse;
-import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrackMessageProcessorTest extends ProcessorTest {
@@ -19,7 +21,7 @@ public class TrackMessageProcessorTest extends ProcessorTest {
         super.init();
         command = new TrackCommand(config);
         processor = new TrackMessageProcessor(
-            scrapperClient);
+                scrapperClient);
     }
 
     @Test
@@ -45,7 +47,7 @@ public class TrackMessageProcessorTest extends ProcessorTest {
         ApiErrorResponse mock = Mockito.mock(ApiErrorResponse.class);
         Mockito.doReturn("Link is already being tracked").when(mock).description();
         Mockito.doReturn(Mono.error(new ApiResponseException(mock)))
-            .when(scrapperClient).addLink(Mockito.any(), Mockito.any());
+                .when(scrapperClient).addLink(Mockito.any(), Mockito.any());
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
     }
@@ -56,7 +58,7 @@ public class TrackMessageProcessorTest extends ProcessorTest {
         Mockito.doReturn("/track " + MOCKED_LINK).when(update).text();
         AddLinkRequest request = Mockito.spy(new AddLinkRequest(URI.create(MOCKED_LINK)));
         Mockito.doReturn(Mono.just(ResponseEntity.ok().body(new LinkResponse(MOCKED_LINK_ID, request.link()))))
-            .when(scrapperClient).addLink(Mockito.any(), Mockito.any());
+                .when(scrapperClient).addLink(Mockito.any(), Mockito.any());
         String actual = processor.process(command, update).text();
         assertEquals(expected, actual);
     }

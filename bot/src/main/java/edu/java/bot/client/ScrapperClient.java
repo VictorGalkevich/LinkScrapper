@@ -22,61 +22,61 @@ public class ScrapperClient extends Client {
 
     public Mono<ResponseEntity<Void>> register(Long tgChatId) {
         return client().post()
-            .uri(config.getChat(), tgChatId)
-            .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
-            )
-            .toBodilessEntity();
+                .uri(config.getChat(), tgChatId)
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
+                )
+                .toBodilessEntity();
     }
 
     public Mono<ResponseEntity<Void>> delete(Long tgChatId) {
         return client().delete()
-            .uri(config.getChat(), tgChatId)
-            .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
-            )
-            .toBodilessEntity();
+                .uri(config.getChat(), tgChatId)
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
+                )
+                .toBodilessEntity();
     }
 
     public Mono<ResponseEntity<ListLinksResponse>> getAllLinks(Long tgChatId) {
         return client().get()
-            .uri(config.getLinks())
-            .header(config.getHeader(), tgChatId.toString())
-            .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
-            )
-            .toEntity(ListLinksResponse.class);
+                .uri(config.getLinks())
+                .header(config.getHeader(), tgChatId.toString())
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
+                )
+                .toEntity(ListLinksResponse.class);
     }
 
     public Mono<ResponseEntity<LinkResponse>> addLink(Long tgChatId, AddLinkRequest req) {
         return client().post()
-            .uri(config.getLinks())
-            .header(config.getHeader(), tgChatId.toString())
-            .bodyValue(req)
-            .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
-            )
-            .toEntity(LinkResponse.class);
+                .uri(config.getLinks())
+                .header(config.getHeader(), tgChatId.toString())
+                .bodyValue(req)
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
+                )
+                .toEntity(LinkResponse.class);
     }
 
     public Mono<ResponseEntity<ListLinksResponse>> remove(Long tgChatId, RemoveLinkRequest req) {
         return client().method(HttpMethod.DELETE)
-            .uri(config.getLinks())
-            .header(config.getHeader(), tgChatId.toString())
-            .bodyValue(req)
-            .retrieve()
-            .onStatus(
-                HttpStatusCode::is4xxClientError,
-                resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
-            )
-            .toEntity(ListLinksResponse.class);
+                .uri(config.getLinks())
+                .header(config.getHeader(), tgChatId.toString())
+                .bodyValue(req)
+                .retrieve()
+                .onStatus(
+                        HttpStatusCode::is4xxClientError,
+                        resp -> resp.bodyToMono(ApiErrorResponse.class).map(ApiResponseException::new)
+                )
+                .toEntity(ListLinksResponse.class);
     }
 }

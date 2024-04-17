@@ -14,6 +14,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -28,9 +29,9 @@ public abstract class IntegrationTest {
 
     static {
         POSTGRES = new PostgreSQLContainer<>("postgres:16")
-            .withDatabaseName("scrapper")
-            .withUsername("postgres")
-            .withPassword("test_password");
+                .withDatabaseName("scrapper")
+                .withUsername("postgres")
+                .withPassword("test_password");
         POSTGRES.start();
 
         runMigrations(POSTGRES);
@@ -41,7 +42,7 @@ public abstract class IntegrationTest {
 
         try (Connection connection = DriverManager.getConnection(c.getJdbcUrl(), c.getUsername(), c.getPassword())) {
             Database db = DatabaseFactory.getInstance()
-                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+                    .findCorrectDatabaseImplementation(new JdbcConnection(connection));
             Liquibase liquibase = new Liquibase("master.xml", new DirectoryResourceAccessor(changelogPath), db);
             liquibase.update(new Contexts(), new LabelExpression());
         } catch (SQLException | LiquibaseException | FileNotFoundException e) {

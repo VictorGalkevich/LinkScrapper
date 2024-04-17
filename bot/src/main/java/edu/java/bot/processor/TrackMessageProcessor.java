@@ -28,12 +28,12 @@ public class TrackMessageProcessor extends UserLinkMessageProcessor {
                 return new SendMessage(id, getMessage(e, command));
             }
             String message = client.addLink(id, new AddLinkRequest(link))
-                .map(resp -> "Link was added to tracking list!")
-                .onErrorResume(
-                    ApiResponseException.class,
-                    err -> Mono.just(err.getResponse().description())
-                )
-                .block();
+                    .map(resp -> "Link was added to tracking list!")
+                    .onErrorResume(
+                            ApiResponseException.class,
+                            err -> Mono.just(err.getResponse().description())
+                    )
+                    .block();
             return new SendMessage(id, message);
         } else {
             return null;

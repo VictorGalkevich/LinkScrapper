@@ -20,12 +20,12 @@ public class StartMessageProcessor extends UserMessageProcessor {
         if (command instanceof StartCommand) {
             Long id = update.id();
             String message = client.register(id)
-                .map(resp -> "Welcome, %s, use /help to see the help page".formatted(update.username()))
-                .onErrorResume(
-                    ApiResponseException.class,
-                    err -> Mono.just(err.getResponse().description())
-                )
-                .block();
+                    .map(resp -> "Welcome, %s, use /help to see the help page".formatted(update.username()))
+                    .onErrorResume(
+                            ApiResponseException.class,
+                            err -> Mono.just(err.getResponse().description())
+                    )
+                    .block();
             return new SendMessage(id, message);
         } else {
             return null;

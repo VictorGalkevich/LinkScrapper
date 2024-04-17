@@ -30,16 +30,16 @@ public class LinkController {
 
     @PostMapping
     public ResponseEntity<LinkResponse> update(
-        @RequestHeader(CHAT_ID_HEADER) Long id,
-        @RequestBody AddLinkRequest req
+            @RequestHeader(CHAT_ID_HEADER) Long id,
+            @RequestBody AddLinkRequest req
     ) {
-        return ok().body(linkService.update(id, req));
+        return ok().body(linkService.add(id, req));
     }
 
     @DeleteMapping
     public ResponseEntity<LinkResponse> delete(
-        @RequestHeader(CHAT_ID_HEADER) Long id,
-        @RequestBody RemoveLinkRequest req
+            @RequestHeader(CHAT_ID_HEADER) Long id,
+            @RequestBody RemoveLinkRequest req
     ) {
         return ok().body(linkService.delete(id, req));
     }

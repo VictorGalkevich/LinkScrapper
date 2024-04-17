@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
@@ -64,11 +65,11 @@ public class SampleTest {
     void testAssumingThat() {
         System.setProperty("env", "test");
         assumingThat(
-            "test".equals(System.getProperty("env")),
-            () -> {
-                assertThat(10).isEqualTo(10);
-                System.out.println("perform below assertions only on the test env");
-            }
+                "test".equals(System.getProperty("env")),
+                () -> {
+                    assertThat(10).isEqualTo(10);
+                    System.out.println("perform below assertions only on the test env");
+                }
         );
 
         assertThat(20).isEqualTo(20);

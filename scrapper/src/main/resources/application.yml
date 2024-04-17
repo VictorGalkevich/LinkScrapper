@@ -3,6 +3,7 @@ app:
     enable: true
     interval: 10s
     force-check-delay: 10s
+    link-check-delay: 50s
   client:
     github: https://api.github.com
     stackoverflow: https://api.stackexchange.com/2.3
@@ -11,10 +12,13 @@ app:
 spring:
   application:
     name: scrapper
+  devtools:
+    restart:
+      enabled: false
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/scrapper}
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD:root1234}
   liquibase:
     enabled: false
 
