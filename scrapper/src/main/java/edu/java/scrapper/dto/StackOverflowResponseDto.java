@@ -8,7 +8,10 @@ public record StackOverflowResponseDto(List<Question> items) {
     public record Question(
             String title,
             @JsonProperty("last_activity_date")
-            OffsetDateTime lastActivityDate
+            OffsetDateTime lastActivityDate,
+            @JsonProperty("answer_count")
+            Long answerCount,
+            Long score
     ) {
     }
 }

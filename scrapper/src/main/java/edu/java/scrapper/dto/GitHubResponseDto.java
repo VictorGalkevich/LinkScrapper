@@ -6,7 +6,11 @@ import java.time.OffsetDateTime;
 public record GitHubResponseDto(
         @JsonProperty("full_name")
         String fullName,
-        @JsonProperty("pushed_at")
-        OffsetDateTime updatedAt) {
+        @JsonProperty("updated_at")
+        OffsetDateTime updatedAt,
+        @JsonProperty("default_branch")
+        String defaultBranch,
+        @JsonProperty("forks_count")
+        Long forksCount) {
 
 }

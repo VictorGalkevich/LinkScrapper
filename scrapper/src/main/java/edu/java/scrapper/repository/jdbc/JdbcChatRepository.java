@@ -1,7 +1,7 @@
 package edu.java.scrapper.repository.jdbc;
 
 import edu.java.scrapper.entity.Chat;
-import edu.java.scrapper.repository.ScrapperRepository;
+import edu.java.scrapper.repository.EntityRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_RELATED_CHATS;
 
 @Repository
 @RequiredArgsConstructor
-public class JdbcChatRepository implements ScrapperRepository<Chat, Long> {
+public class JdbcChatRepository implements EntityRepository<Chat, Long> {
     private final JdbcClient jdbcClient;
     private final BeanPropertyRowMapper<Chat> mapper = new BeanPropertyRowMapper<>(Chat.class);
 

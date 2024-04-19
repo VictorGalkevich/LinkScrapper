@@ -48,4 +48,34 @@ public abstract class SqlQueries {
             WHERE id=?
             """;
 
+    public static final String FIND_GITHUB_LINK = """
+        SELECT * FROM github_links
+        WHERE id=?
+        """;
+
+    public static final String FIND_SOF_LINK = """
+        SELECT * FROM stackoverflow_links
+        WHERE id=?
+        """;
+
+    public static final String ADD_GITHUB_LINK = """
+        INSERT INTO github_links (id, default_branch, forks_count)
+        VALUES (?,?,?) RETURNING *
+        """;
+
+    public static final String ADD_SOF_LINK = """
+        INSERT INTO stackoverflow_links (id, answer_count, score)
+        VALUES (?,?,?) RETURNING *
+        """;
+
+    public static final String UPDATE_GITHUB_LINK = """
+        UPDATE github_links
+        SET default_branch=?, forks_count=? WHERE id=?
+        """;
+
+    public static final String UPDATE_SOF_LINK = """
+        UPDATE stackoverflow_links
+        SET answer_count=?, score=? WHERE id=?
+        """;
+
 }
