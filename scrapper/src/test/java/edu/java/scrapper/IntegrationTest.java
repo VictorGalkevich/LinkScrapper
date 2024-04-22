@@ -1,5 +1,6 @@
 package edu.java.scrapper;
 
+import edu.java.scrapper.configuration.access.AccessType;
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
@@ -55,5 +56,9 @@ public abstract class IntegrationTest {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
         registry.add("spring.datasource.username", POSTGRES::getUsername);
         registry.add("spring.datasource.password", POSTGRES::getPassword);
+    }
+
+    public static void setAccessType(DynamicPropertyRegistry registry, String type) {
+        registry.add("app.database-access-type", () -> type);
     }
 }

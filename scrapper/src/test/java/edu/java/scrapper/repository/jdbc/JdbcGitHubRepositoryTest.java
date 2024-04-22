@@ -1,21 +1,20 @@
 package edu.java.scrapper.repository.jdbc;
 
-import edu.java.scrapper.IntegrationTest;
 import edu.java.scrapper.ScrapperIT;
 import edu.java.scrapper.entity.GitHubLink;
 import edu.java.scrapper.entity.Link;
+import java.net.URI;
+import java.util.Objects;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import java.net.URI;
-import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ScrapperIT
-public class JdbcGitHubRepositoryTest extends IntegrationTest {
+public class JdbcGitHubRepositoryTest extends JdbcRepositoryTest {
     @Autowired
     private JdbcGitHubRepository gitHubLinkRepository;
     @Autowired

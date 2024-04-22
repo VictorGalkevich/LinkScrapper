@@ -9,11 +9,9 @@ import java.util.Collection;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.domain.jooq.Tables.ASSIGNMENT;
 import static edu.java.scrapper.domain.jooq.Tables.LINKS;
 
-@Repository
 @RequiredArgsConstructor
 public class JooqLinkRepository implements EntityRepository<Link, Long> {
     private final DSLContext dslContext;
@@ -53,6 +51,8 @@ public class JooqLinkRepository implements EntityRepository<Link, Long> {
     public Collection<Link> findByChatId(Long id) {
         return dslContext.select(LINKS.fields())
             .from(LINKS)
+            .innerJoin(ASSIGNMENT).on(LINKS.ID.eq(ASSIGNMENT.LINK_ID))
+            .where(ASSIGNMENT.CHAT_ID.eq(id))
             .fetchInto(Link.class);
     }
 

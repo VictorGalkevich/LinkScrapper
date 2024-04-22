@@ -8,8 +8,13 @@ app:
     github: https://api.github.com
     stackoverflow: https://api.stackexchange.com/2.3
     bot: http://localhost:8090
+  database-access-type: jdbc
 
 spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: scrapper
   devtools:

@@ -1,6 +1,5 @@
 package edu.java.scrapper.service.jooq;
 
-import edu.java.scrapper.annotation.TransactionalService;
 import edu.java.scrapper.entity.Chat;
 import edu.java.scrapper.exception.ChatAlreadyRegisteredException;
 import edu.java.scrapper.exception.ChatIsNotRegisteredException;
@@ -13,7 +12,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
-@TransactionalService
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class JooqChatService implements ChatService {
     private final JooqChatRepository chatRepository;

@@ -7,12 +7,10 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_GITHUB_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_GITHUB_LINK;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.UPDATE_GITHUB_LINK;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcGitHubRepository implements LinkUpdateRepository<GitHubLink> {
     private final JdbcClient jdbcClient;

@@ -7,13 +7,11 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
-import org.springframework.stereotype.Repository;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.ADD_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.DELETE_CHAT;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_CHAT_BY_ID;
 import static edu.java.scrapper.repository.jdbc.SqlQueries.FIND_RELATED_CHATS;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcChatRepository implements EntityRepository<Chat, Long> {
     private final JdbcClient jdbcClient;
