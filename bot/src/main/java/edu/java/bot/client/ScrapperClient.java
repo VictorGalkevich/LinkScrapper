@@ -1,5 +1,6 @@
 package edu.java.bot.client;
 
+import edu.java.backoff.filter.RetryFilter;
 import edu.java.bot.configuration.ScrapperConfig;
 import edu.java.bot.exception.ApiResponseException;
 import edu.java.dto.request.AddLinkRequest;
@@ -15,8 +16,8 @@ import reactor.core.publisher.Mono;
 public class ScrapperClient extends Client {
     private final ScrapperConfig config;
 
-    public ScrapperClient(String baseUrl, ScrapperConfig config) {
-        super(baseUrl);
+    public ScrapperClient(String baseUrl, ScrapperConfig config, RetryFilter filter) {
+        super(baseUrl, filter);
         this.config = config;
     }
 

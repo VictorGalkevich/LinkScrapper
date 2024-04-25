@@ -8,7 +8,14 @@ app:
     github: https://api.github.com
     stackoverflow: https://api.stackexchange.com/2.3
     bot: http://localhost:8090
+  rate-limit:
+    cache-size: 10_000
+    expire-after-access: 2h
+    refill-rate: 100
+    refill-time-seconds: 3600
+    capacity: 100
   database-access-type: jdbc
+  git-hub-token: ${GIT_HUB_TOKEN}
 
 spring:
   jpa:
