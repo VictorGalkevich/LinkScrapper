@@ -11,7 +11,8 @@ public record ApplicationConfig(
     String telegramToken,
     @NotEmpty
     String updateMessage,
-    KafkaConfigInfo kafkaConfigInfo
+    KafkaConfigInfo kafkaConfigInfo,
+    Micrometer micrometer
 ) {
 
     public record KafkaConfigInfo(
@@ -22,6 +23,16 @@ public record ApplicationConfig(
             String name,
             Integer partitions,
             Integer replicas
+        ) {
+        }
+    }
+
+    public record Micrometer(
+        ProcessedMessagesCounter processedMessagesCounter
+    ) {
+        public record ProcessedMessagesCounter(
+            String name,
+            String description
         ) {
         }
     }

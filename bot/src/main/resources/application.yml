@@ -7,6 +7,10 @@ app:
       name: scrapper.updates
       partitions: 2
       replicas: 2
+  micrometer:
+    processed-messages-counter:
+      name: messages.processed
+      description: number of processed messages
 
 spring:
   application:
@@ -19,6 +23,20 @@ spring:
 
 server:
   port: 8090
+
+management:
+  server:
+    port: 8091
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health,info,prometheus
+      path-mapping:
+        prometheus: metrics
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 logging:
   config: classpath:log4j2-plain.xml
