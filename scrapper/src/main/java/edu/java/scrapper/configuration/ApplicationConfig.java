@@ -12,7 +12,9 @@ public record ApplicationConfig(
     Scheduler scheduler,
     RateLimit rateLimit,
     @NotNull
-    String gitHubToken
+    String gitHubToken,
+    KafkaConfigInfo kafkaConfigInfo,
+    Boolean useQueue
 
 ) {
     public record Scheduler(
@@ -30,5 +32,17 @@ public record ApplicationConfig(
         Long cacheSize,
         Duration expireAfterAccess
     ) {
+    }
+
+    public record KafkaConfigInfo(
+        String bootstrapServers,
+        UpdatesTopic updatesTopic
+    ) {
+        public record UpdatesTopic(
+            String name,
+            Integer partitions,
+            Integer replicas
+        ) {
+        }
     }
 }

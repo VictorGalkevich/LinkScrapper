@@ -1,9 +1,9 @@
 package edu.java.scrapper.scheduler;
 
 import edu.java.dto.request.LinkUpdate;
-import edu.java.scrapper.client.BotClient;
 import edu.java.scrapper.configuration.ApplicationConfig;
 import edu.java.scrapper.processor.Processor;
+import edu.java.scrapper.sender.UpdateSender;
 import edu.java.scrapper.service.ChatService;
 import edu.java.scrapper.service.LinkService;
 import java.net.URI;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LinkUpdaterScheduler {
     private final ApplicationConfig config;
-    private final BotClient botClient;
+    private final UpdateSender updateSender;
     private final LinkService jooqLinkService;
     private final ChatService jooqChatService;
     private final List<Processor> processors;
@@ -37,8 +37,7 @@ public class LinkUpdaterScheduler {
                             upd,
                             jooqChatService.findAllChatsByLinkId(link.getId())
                         ))
-                        .flatMap(botClient::sendUpdate)
-                        .subscribe();
+                        .subscribe(updateSender::sendUpdate);
                 }
             });
         });

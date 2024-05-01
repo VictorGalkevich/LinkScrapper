@@ -10,5 +10,19 @@ public record ApplicationConfig(
     @NotEmpty
     String telegramToken,
     @NotEmpty
-    String updateMessage) {
+    String updateMessage,
+    KafkaConfigInfo kafkaConfigInfo
+) {
+
+    public record KafkaConfigInfo(
+        String bootstrapServers,
+        UpdatesTopic updatesTopic
+    ) {
+        public record UpdatesTopic(
+            String name,
+            Integer partitions,
+            Integer replicas
+        ) {
+        }
+    }
 }
