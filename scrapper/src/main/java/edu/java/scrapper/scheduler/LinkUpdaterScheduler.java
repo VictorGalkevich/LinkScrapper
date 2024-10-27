@@ -26,20 +26,19 @@ public class LinkUpdaterScheduler {
 
     @Scheduled(fixedDelayString = "PT${app.scheduler.interval}")
     public void update() {
-        jooqLinkService.findAllWithDelay(config.scheduler().linkCheckDelay()).forEach(link -> {
-            processors.forEach(proc -> {
-                if (proc.supports(link)) {
-                    proc.process(link)
-                        .filter(Objects::nonNull)
-                        .map(upd -> new LinkUpdate(
-                            link.getId(),
-                            URI.create(link.getUri()),
-                            upd,
-                            jooqChatService.findAllChatsByLinkId(link.getId())
-                        ))
-                        .subscribe(updateSender::sendUpdate);
-                }
-            });
-        });
+        jooqLinkService.findAllWithDelay(
+            config.scheduler().linkCheckDelay()).forEach(link -> processors.forEach(proc -> {
+            if (proc.supports(link)) {
+                proc.process(link)
+                    .filter(Objects::nonNull)
+                    .map(upd -> new LinkUpdate(
+                        link.getId(),
+                        URI.create(link.getUri()),
+                        upd,
+                        jooqChatService.findAllChatsByLinkId(link.getId())
+                    ))
+                    .subscribe(updateSender::sendUpdate);
+            }
+        }));
     }
 }

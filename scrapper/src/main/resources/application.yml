@@ -35,7 +35,7 @@ spring:
     restart:
       enabled: false
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/scrapper}
+    url: ${DB_URL:jdbc:postgresql://localhost:5434/scrapper}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:root1234}
   liquibase:

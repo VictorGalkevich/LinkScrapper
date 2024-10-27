@@ -1,6 +1,5 @@
 package edu.java.scrapper;
 
-import edu.java.scrapper.configuration.access.AccessType;
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
